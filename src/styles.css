@@ -1,23 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
-@media(max-width: 480px) {
+@media (max-width: 480px) {
   h1 {
     font-size: 6pt;
   }
 
-  h1 {
+  h5 {
     font-size: 4pt;
-  }}
+  }
+}
 
 
-@media(max-width: 720px) {
+@media (max-width: 720px) {
   h1 {
     font-size: 12pt;
   }
-  h1 {
+
+  h5 {
     font-size: 6pt;
   }
 }
 
-.navbar{
+.navbar {
   background-color: bisque;
+}
+
+@media (min-width: 768px) {
+
+  .fluid-middle-column {
+    width: calc(100% - 500px);
+  }
+
+  .d-flex-row.text-primary {
+    width: 70%;
+  }
+
+  @media (max-width: 768px) {
+    .d-flex-row.text-primary {
+      width: 100%;
+    }
+  }
+
 }
