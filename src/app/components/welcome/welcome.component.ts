@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
@@ -7,22 +8,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomeComponent implements OnInit {
   scooterText = "";
+  dropDownText = "";
+  dropDownTextItem = "";
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
-  onClickLime(){
+  onClickDropdown() {
+    this.dropDownText = "";
+  }
+
+  onClickLime() {
     this.scooterText = "Lime is your ideal carbon-free option for any trip, any time, anywhere.";
+    event.preventDefault();
   }
-  onClickLink(){
+
+  onClickLink() {
     this.scooterText = "Link is your ideal carbon-free option for any trip, any time, anywhere.";
+    event.preventDefault();
   }
-  onClickTier(){
+
+  onClickTier() {
     this.scooterText = "Tier is your ideal carbon-free option for any trip, any time, anywhere.";
+    event.preventDefault();
   }
-  onClickBird(){
+
+  onClickBird() {
     this.scooterText = "Bird is your ideal carbon-free option for any trip, any time, anywhere.";
+    event.preventDefault();
   }
 }

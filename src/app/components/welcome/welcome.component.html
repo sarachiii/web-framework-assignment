@@ -1,59 +1,51 @@
 <div class="container-fluid">
   <div class="row d-inline-flex">
-    <div class="col-sm-3 " style="width: 320px;">
+    <div class="col-sm-3 col-md-2 col-xl-2" style="width: 200px; height: 400px;">
       <div class="dropdown">
         <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                data-bs-toggle="dropdown" aria-expanded="false">
-          Amsterdam
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
+                data-bs-toggle="dropdown" aria-expanded="false">Selecteer stad</button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" (click)="onClickDropdown()">
+          <li><a class="dropdown-item" href="#">Amsterdam</a></li>
+          <li><a class="dropdown-item" href="#">Utrecht</a></li>
+          <li><a class="dropdown-item" href="#">Zaandam</a></li>
         </ul>
       </div>
+      <table class="table">
+        <tbody>
+        <tr>
+          <th scope="row">Leidseplein</th>
+          <td>3</td>
+        </tr>
+        <tr>
+          <th scope="row">Rembrandt Plein</th>
+          <td>7</td>
+        </tr>
+        <tr>
+          <th scope="row">Centraal Station</th>
+          <td>1</td>
+        </tr>
+        </tbody>
+      </table>
+      {{dropDownText}}
     </div>
-    <div class="col-sm-7 fluid-middle-column text-center" >
+    <div class="col-sm-6 col-md-7 col-xl-8 text-center" >
       <a href=""><img src="../assets/images/lime-scooter.jfif" style="max-height: 300px;" class="p-1 img-fluid"
-                      alt="Lime Scooter"></a>
+                      alt="Lime Scooter" (click)="onClickLime()"></a>
       <a href=""><img src="../assets/images/link-scooter.jpeg" style="max-height: 300px;" class="p-1 img-fluid"
-                      alt="Link Scooter"></a>
+                      alt="Link Scooter"(click)="onClickLink()"></a>
       <a href=""><img src="../assets/images/tier-scooter.jpg" style="max-height: 300px;" class="p-1 img-fluid"
-                      alt="Tier Scooter"></a>
+                      alt="Tier Scooter" (click)="onClickTier()"></a>
       <a href=""><img src="../assets/images/bird-scooter.png" style="max-height: 300px;" class="p-1 img-fluid"
-                      alt="Bird Scooter"></a>
+                      alt="Bird Scooter" (click)="onClickBird()"></a>
     </div>
 
-    <div class="col-sm-3 " style="width: 320px;">
-      <b>Lime Scooter</b>
-      Lime is your ideal carbon-free option for any trip, any time, anywhere.
+    <div class="col-sm-3 col-md-2 col-xl-2" style="width: 200px;">
+      {{scooterText}}
       <hr>
       <button class="btn btn-primary">
         Subscribe
       </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item" href="#">Amsterdam</a></li>
-        <li><a class="dropdown-item" href="#">Utrecht</a></li>
-        <li><a class="dropdown-item" href="#">Groningen</a></li>
-      </ul>
     </div>
-  </div>
-  <div class="col-7">
-    <a href=""><img src="../assets/images/lime-scooter.jfif" height="200" class="d-inline-block align-top"
-                    alt="Lime Scooter" (click)="onClickLime()"></a>
-    <a href=""><img src="../assets/images/link-scooter.jpeg" height="200" class="d-inline-block align-top"
-                    alt="Link Scooter" (click)="onClickLink()"></a>
-    <a href=""><img src="../assets/images/tier-scooter.jpg" height="200" class="d-inline-block align-top"
-                    alt="Tier Scooter" (click)="onClickTier()"></a>
-    <a href=""><img src="../assets/images/bird-scooter.png" height="200" class="d-inline-block align-top"
-                    alt="Bird Scooter" (click)="onClickBird()"></a>
-  </div>
-  <div class="col-2">
-    {{scooterText}}
-    <hr>
-    <button class="btn btn-primary">
-      Subscribe
-    </button>
   </div>
 </div>
 
