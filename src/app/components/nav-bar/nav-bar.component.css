@@ -1,3 +1,15 @@
 .navbar{
   margin: 2px;
 }
+
+.dropdown-menu{
+  background-color: bisque;
+}
+
+.dropdown-menu a{
+  color: black;
+}
+
+a{
+  color: grey;
+}
