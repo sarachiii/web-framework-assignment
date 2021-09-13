@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import {FormsModule} from "@angular/forms";
 import { HeaderComponent } from './components/header/header.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     AppComponent,
     HeaderComponent,
     WelcomeComponent,
+    NavBarComponent,
 
   ],
     imports: [
