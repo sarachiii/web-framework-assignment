@@ -12,4 +12,9 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  showCurrentDate() {
+    let currentDate = new Date();
+    let dateFormat = currentDate.toLocaleString('en-GB', {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'});
+    return dateFormat;
+  }
 }
