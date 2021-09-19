@@ -6,27 +6,27 @@ enum ScooterStatus {
 
 export class Scooter{
   public id: number;
-  public tag: string;
-  public status: ScooterStatus;
-  public gpsLocation: string;
-  public mileage: number;
-  public batteryCharge: number;
-  centralLatitude: number = 52.379189;
-  centralLongitude: number = 4.899431;
-  radius: number = 0.035234;
-  newLatitude: number;
-  newLongitude: number;
+  public static tag: string;
+  public static status: ScooterStatus;
+  public static gpsLocation: string;
+  public static mileage: number;
+  public static batteryCharge: number;
+  static centralLatitude: number = 52.379189;
+  static centralLongitude: number = 4.899431;
+  static radius: number = 0.035234;
+  static newLatitude: number;
+  static newLongitude: number;
 
   constructor() {
   }
 
-  createLatitude() {
+  static createLatitude() {
     let randomNumber = Math.random() * (1 - (-1)) + (-1);
     this.newLatitude = (randomNumber * this.radius) + this.centralLatitude;
     return this.newLatitude;
   }
 
-  createLongitude() {
+  static createLongitude() {
     let randomNumber = Math.random() * (1 - (-1)) + (-1);
     this.newLongitude = (randomNumber * this.radius) + this.centralLongitude;
     return this.newLongitude;
