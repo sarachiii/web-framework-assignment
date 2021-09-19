@@ -17,9 +17,12 @@ export class Overview31Component implements OnInit {
     this.scooters = [];
     for (let i = 0; i < 8; i++) {
       this.scooters.push(
-        Scooter.createSampleScooter(this.pId));
+        Scooter.createSampleScooter(this.pId)
+      );
+      console.log(this.scooters[0]);
     this.pId += 3;
     }
+    console.log(this.scooters[0]);
   }
 
   onNewScooter() {
