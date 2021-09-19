@@ -11,9 +11,6 @@ export class WelcomeComponent implements OnInit {
   dropDownText = "";
   dropDownTextItem = "";
 
-  constructor() {
-  }
-
   ngOnInit(): void {
   }
 

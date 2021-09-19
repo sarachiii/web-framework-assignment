@@ -6,7 +6,7 @@ import {FormsModule} from "@angular/forms";
 import { HeaderComponent } from './components/header/header.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
-
+import { Overview31Component } from './components/scooters/overview31/overview31.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +14,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
     HeaderComponent,
     WelcomeComponent,
     NavBarComponent,
+    Overview31Component,
 
   ],
     imports: [
