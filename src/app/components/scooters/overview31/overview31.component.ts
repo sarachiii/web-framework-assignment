@@ -9,7 +9,7 @@ import {Scooter} from "../../../models/scooter";
 export class Overview31Component implements OnInit {
 
   scooters: Scooter[];
-  pId: number = 3000;
+  pId: number = 30000;
 
   constructor() { }
 
@@ -23,7 +23,7 @@ export class Overview31Component implements OnInit {
   }
 
   onNewScooter() {
-    this.pId =+ 3;
+    this.pId += 3;
     Scooter.createSampleScooter(this.pId);
   }
 }
