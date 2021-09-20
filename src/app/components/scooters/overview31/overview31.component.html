@@ -11,14 +11,15 @@
   </tr>
   </thead>
   <tbody>
-    <tr>
-    <td>{{scooters[1].id}}</td>
-    <td>{{scooters[1].tag}}</td>
-    <td>{{scooters[1].status}}</td>
-    <td>{{scooters[1].gpsLocation}}</td> <!-- HIER *NgIf toevoegen om te checken of scooter in gebruik is-->
-    <td>{{scooters[1].mileage}} Km</td>
-    <td>{{scooters[1].batteryCharge}} %</td>
+    <tr *ngFor="let scooter of scooters">
+    <td>{{scooter.id}}</td>
+    <td>{{scooter.tag}}</td>
+    <td>{{scooter.status}}</td>
+    <td *ngIf="scooter.status !== 'INUSE'; else inuse">{{scooter.gpsLocation}}</td>
+    <ng-template #inuse><td></td></ng-template>
+      <td>{{scooter.mileage}} Km</td>
+    <td>{{scooter.batteryCharge}} %</td>
     </tr>
   </tbody>
 </table>
-<button class="btn-primary float-end mx-5" (click)="ngOnInit()">New Scooter</button>
+<button class="btn-primary float-end mx-2" (click)="onNewScooter()">New Scooter</button>

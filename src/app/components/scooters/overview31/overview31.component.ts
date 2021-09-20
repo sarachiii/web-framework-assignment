@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Scooter} from "../../../models/scooter";
 
+
 @Component({
   selector: 'app-overview31',
   templateUrl: './overview31.component.html',
@@ -17,9 +18,14 @@ export class Overview31Component implements OnInit {
     this.scooters = [];
     for (let i = 0; i < 8; i++) {
       this.scooters.push(Scooter.createSampleScooter(this.pId));
-      this.pId += 3;
+      this.pId += 3; //increase with a (random) increment of about 3 for each new scooter?
       console.log(this.scooters[i]);
     }
+  }
+
+  onNewScooter() {
+    this.scooters.push(Scooter.createSampleScooter(this.pId));
+    this.pId += 3; // increase with a (random) increment of about 3 for each new scooter?
   }
 }
 

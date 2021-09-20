@@ -30,13 +30,13 @@ export class Scooter {
   static createLatitude() {
     let randomNumber = Math.random() * (1 - (-1)) + (-1);
     this.newLatitude = (randomNumber * this.radius) + this.centralLatitude;
-    return this.newLatitude.toFixed(4);
+    return this.newLatitude.toFixed(4) + "N";
   }
 
   static createLongitude() {
     let randomNumber = Math.random() * (1 - (-1)) + (-1);
     this.newLongitude = (randomNumber * this.radius) + this.centralLongitude;
-    return this.newLongitude.toFixed(4);
+    return this.newLongitude.toFixed(4) + "E";
   }
 
   public static createSampleScooter(pId = 0): Scooter {
