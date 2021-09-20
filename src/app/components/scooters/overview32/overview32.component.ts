@@ -11,7 +11,7 @@ export class Overview32Component implements OnInit {
   scooters: Scooter[];
   pId: number = 30000;
   clicked: boolean = null;
-  // selected = [];
+  selected = [];
 
   constructor() {
   }
@@ -27,10 +27,15 @@ export class Overview32Component implements OnInit {
   onAddScooter() {
     this.scooters.push(Scooter.createSampleScooter(this.pId));
     this.pId += 3; // increase with a (random) increment of about 3 for each new scooter?
-    // this.selected.push(true);
+    this.selected.push(true);
     this.clicked = true;
   }
 
   selectedScooter(i) {
+    if(this.clicked == null){
+      this.clicked = true;
+    } else {
+      this.clicked = null;
+    }
   }
 }
