@@ -12,15 +12,15 @@
   </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let scooter of scooters">
+  <tr *ngFor="let scooter of scooters">
     <td>{{scooter.id}}</td>
     <td>{{scooter.tag}}</td>
     <td>{{scooter.status}}</td>
     <td *ngIf="scooter.status !== 'INUSE'; else inuse">{{scooter.gpsLocation}}</td>
     <ng-template #inuse><td></td></ng-template>
-      <td>{{scooter.mileage}} Km</td>
+    <td>{{scooter.mileage}} Km</td>
     <td>{{scooter.batteryCharge}} %</td>
-    </tr>
+  </tr>
   </tbody>
 </table>
 <button class="btn-primary float-end mx-2" (click)="onNewScooter()">New Scooter</button>

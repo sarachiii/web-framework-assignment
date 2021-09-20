@@ -1,1 +1,17 @@
-<p>overview32 works!</p>
+<h2>A list of scooters in your neighbourhood:</h2>
+
+<table class="table table-bordered text-center mx-auto">
+  <thead>
+  <tr>
+    <th scope="col">Tag</th>
+    <th scope="col">Status</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let scooter of scooters">
+    <td>{{scooter.tag}}</td>
+    <td>{{scooter.status}}</td>
+  </tr>
+  </tbody>
+</table>
+<button class="btn-primary float-end mx-2" (click)="onAddScooter()">Add Scooter</button>
