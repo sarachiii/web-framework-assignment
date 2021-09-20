@@ -12,13 +12,13 @@
   </thead>
   <tbody>
     <tr>
-    <td>30003</td>
-    <td>Owdpei26</td>
-    <td>INUSE</td>
-    <td></td> <!-- HIER *NgIf toevoegen om te checken of scooter in gebruik is-->
-    <td>1874 Km</td>
-    <td>80 %</td>
+    <td>{{scooters[1].id}}</td>
+    <td>{{scooters[1].tag}}</td>
+    <td>{{scooters[1].status}}</td>
+    <td>{{scooters[1].gpsLocation}}</td> <!-- HIER *NgIf toevoegen om te checken of scooter in gebruik is-->
+    <td>{{scooters[1].mileage}} Km</td>
+    <td>{{scooters[1].batteryCharge}} %</td>
     </tr>
   </tbody>
 </table>
-<button class="btn-primary float-end mx-5" (click)="onNewScooter()">New Scooter</button>
+<button class="btn-primary float-end mx-5" (click)="ngOnInit()">New Scooter</button>

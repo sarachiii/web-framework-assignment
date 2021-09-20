@@ -13,20 +13,13 @@ export class Overview31Component implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.scooters = [];
     for (let i = 0; i < 8; i++) {
-      this.scooters.push(
-        Scooter.createSampleScooter(this.pId)
-      );
-      console.log(this.scooters[0]);
-    this.pId += 3;
+      this.scooters.push(Scooter.createSampleScooter(this.pId));
+      this.pId += 3;
+      console.log(this.scooters[i]);
     }
-    console.log(this.scooters[0]);
-  }
-
-  onNewScooter() {
-    this.pId += 3;
-    Scooter.createSampleScooter(this.pId);
   }
 }
+
