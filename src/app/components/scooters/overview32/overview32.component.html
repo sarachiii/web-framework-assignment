@@ -8,10 +8,14 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let scooter of scooters">
-    <td>{{scooter.tag}}</td>
+  <tr *ngFor="let scooter of scooters; let i = index;"> <!-- (click)="selectedScooter(i)" -->
+    <td>{{scooter.tag}}</td>  <!-- [style.background-color] = "selected[i]  ? 'green' : 'transparant'"-->
     <td>{{scooter.status}}</td>
   </tr>
   </tbody>
 </table>
 <button class="btn-primary float-end mx-2" (click)="onAddScooter()">Add Scooter</button>
+
+<div *ngIf="clicked === false; else detail32">Select a scooter from the left page!</div>
+<ng-template #detail32><ng-container><app-detail32></app-detail32></ng-container></ng-template>
+
