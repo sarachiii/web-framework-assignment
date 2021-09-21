@@ -12,6 +12,7 @@ export class Overview32Component implements OnInit {
   pId: number = 30000;
   clicked: boolean = null;
   selected = [];
+  selectedScooter: Scooter = <Scooter>{};
 
   constructor() {
   }
@@ -31,11 +32,12 @@ export class Overview32Component implements OnInit {
     this.clicked = true;
   }
 
-  selectedScooter(i) {
-    if(this.clicked == null){
-      this.clicked = true;
-    } else {
-      this.clicked = null;
-    }
-  }
+  // selectedScooter(i) {
+  //   if (this.clicked == null) {
+  //     this.clicked = true;
+  //   } else {
+  //     this.clicked = null;
+  //   }
+  //   console.log(i);
+  // }
 }

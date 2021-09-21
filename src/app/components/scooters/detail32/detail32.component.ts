@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'app-scooters-detail32',
@@ -7,9 +7,14 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class Detail32Component implements OnInit {
   @Input() selectedScooterFromOverview;
+ // @Output() onDelete
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onDelete(){
+
   }
 
 }
