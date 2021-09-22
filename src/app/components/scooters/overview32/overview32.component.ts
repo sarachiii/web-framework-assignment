@@ -10,7 +10,7 @@ export class Overview32Component implements OnInit {
 
   scooters: Scooter[];
   pId: number = 30000;
-  clicked: boolean = null;
+  clicked: boolean = false;
   selected = [];
   selectedScooter: Scooter = <Scooter>{};
 
@@ -32,12 +32,11 @@ export class Overview32Component implements OnInit {
     this.clicked = true;
   }
 
-  // selectedScooter(i) {
-  //   if (this.clicked == null) {
-  //     this.clicked = true;
-  //   } else {
-  //     this.clicked = null;
-  //   }
-  //   console.log(i);
-  // }
+  onClickRow() {
+    this.clicked = !this.clicked;
+  }
+
+  onSelect(scooter: Scooter): void{
+    this.selectedScooter = scooter;
+  }
 }

@@ -9,7 +9,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let scooter of scooters;" (click)="selectedScooter = scooter"
+    <tr *ngFor="let scooter of scooters;" (click)="selectedScooter = scooter; onSelect(scooter); onClickRow()"
         [ngClass]="{'table-active': scooter.id === selectedScooter.id}">
       <td>{{scooter.tag}}</td>
       <td>{{scooter.status}}</td>
@@ -19,7 +19,7 @@
   <button class="btn-primary mx-2" (click)="onAddScooter()">Add Scooter</button>
 </div>
 
-<div *ngIf="clicked === null; else detail32" class="float-left">Select a scooter from the left page!</div>
+<div *ngIf="clicked === false; else detail32" class="float-left">Select a scooter from the left page!</div>
 <ng-template #detail32>
   <ng-container>
     <app-scooters-detail32

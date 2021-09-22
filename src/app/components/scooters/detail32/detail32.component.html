@@ -1,27 +1,38 @@
-<div class="float-left" style="background: bisque; width: 275px"><strong>Update scooter ....</strong></div>
-<div style="width: 500px;">
-  <br>
-<form>
-  <div class="form-group row">
-    Tag:
-    <input type="text">
+<div class="row">
+  <div class="float-left" style="background: bisque"><strong>Update scooter {{selectedScooterFromOverview.tag}} (id={{selectedScooterFromOverview.id}})</strong></div>
+  <div class="col-xs-12">
+    <form>
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="tag">Tag:</label>
+          <input type="text" id="tag" value="{{selectedScooterFromOverview.tag}}" class="form-control">
+        </div>
+        <div class="col-sm-12 form-group">
+          <label for="status">Status:</label>
+          <select id="status" class="form-control" name="{{selectedScooterFromOverview.status}}">
+          <option value="idle">{{selectedScooterFromOverview.status}}</option>
+          <option value="inuse">INUSE</option>
+          <option value="maintanance">MAINTANANCE</option>
+          </select>
+        </div>
+        <div class="col-sm-12 form-group">
+          <label for="location">GPS-Location: </label>
+          <input type="text" id="location" class="form-control" value="{{selectedScooterFromOverview.gpsLocation}}">
+        </div>
+        <div class="col-sm-12 form-group">
+          <label for="mileage">Mileage: </label>
+          <input type="text" id="mileage" class="form-control" value="{{selectedScooterFromOverview.mileage}}">
+        </div>
+        <div class="col-sm-12 form-group">
+          <label for="battery">Battery Charge: </label>
+          <input type="text" id="battery" class="form-control" value="{{selectedScooterFromOverview.batteryCharge}}">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+        <button class="btn-danger float-right">Delete</button>
+        </div>
+      </div>
+    </form>
   </div>
-  <div class="form-group row">
-    Status:
-    <select></select>
-  </div>
-  <div class="form-group row">
-    GPS-Location:
-    <input type="text">
-  </div>
-  <div class="form-group row">
-    Mileage:
-    <input type="text">
-  </div>
-  <div class="form-group row">
-    Battery Charge:
-    <input type="text">
-  </div>
-</form>
-  <button class="btn-danger float-right">Delete</button>
 </div>
