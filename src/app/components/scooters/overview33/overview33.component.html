@@ -1,0 +1,31 @@
+<h2>Scooters in your neighbourhood:</h2>
+
+<div class="float-left">
+  <table class="table table-bordered table-hover text-center mx-2">
+    <thead>
+    <tr>
+      <th scope="col">Tag</th>
+      <th scope="col">Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let scooter of scooters;" (click)="onSelect(scooter);"
+        [ngClass]="{'table-active': scooter.id === selectedScooter.id}">
+      <td>{{scooter.tag}}</td>
+      <td>{{scooter.status}}</td>
+    </tr>
+    </tbody>
+  </table>
+  <button class="btn-primary mx-2" (click)="onAddScooter()">Add Scooter</button>
+</div>
+
+<div *ngIf="selectedScooter.id === undefined; else detail33" class="float-left">Select a scooter from the left page!</div>
+<ng-template #detail33>
+  <ng-container>
+    <app-scooters-detail33
+      [selectedScooterFromOverview] = "selectedScooter"
+      (deletedSelected)="onDelete($event)">
+    </app-scooters-detail33>
+  </ng-container>
+</ng-template>
+

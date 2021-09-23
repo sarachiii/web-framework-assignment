@@ -9,6 +9,8 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { Overview31Component } from './components/scooters/overview31/overview31.component';
 import { Overview32Component } from './components/scooters/overview32/overview32.component';
 import { Detail32Component } from './components/scooters/detail32/detail32.component';
+import { Overview33Component } from './components/scooters/overview33/overview33.component';
+import { Detail33Component } from './components/scooters/detail33/detail33.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { Detail32Component } from './components/scooters/detail32/detail32.compo
     Overview31Component,
     Overview32Component,
     Detail32Component,
+    Overview33Component,
+    Detail33Component,
 
   ],
     imports: [
