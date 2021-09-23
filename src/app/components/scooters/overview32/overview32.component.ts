@@ -11,7 +11,6 @@ export class Overview32Component implements OnInit {
   scooters: Scooter[];
   pId: number = 30000;
   clicked: boolean = false;
-  selected = [];
   selectedScooter: Scooter = <Scooter>{};
 
   constructor() {
@@ -26,17 +25,24 @@ export class Overview32Component implements OnInit {
   }
 
   onAddScooter() {
-    this.scooters.push(Scooter.createSampleScooter(this.pId));
+    let newScooter = Scooter.createSampleScooter(this.pId);
+    this.scooters.push(newScooter);
     this.pId += 3; // increase with a (random) increment of about 3 for each new scooter?
-    this.selected.push(true);
-    this.clicked = true;
+    this.onSelect(newScooter);
   }
 
-  onClickRow() {
-    this.clicked = !this.clicked;
-  }
-
-  onSelect(scooter: Scooter): void{
-    this.selectedScooter = scooter;
+  onSelect(scooter: Scooter): void {
+    if(scooter.id === this.selectedScooter.id){
+      this.selectedScooter = <Scooter>{};
+    } else {
+      this.selectedScooter = scooter;
+    }
+    // if (this.selectedScooter === null) {
+    //   this.clicked = !this.clicked;
+    // }else if (this.selectedScooter === scooter && this.clicked === true) {
+    //   this.clicked = false;
+    // } else {
+    //   this.clicked = true;
+    // }
   }
 }
