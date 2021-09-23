@@ -37,12 +37,10 @@ export class Overview32Component implements OnInit {
     } else {
       this.selectedScooter = scooter;
     }
-    // if (this.selectedScooter === null) {
-    //   this.clicked = !this.clicked;
-    // }else if (this.selectedScooter === scooter && this.clicked === true) {
-    //   this.clicked = false;
-    // } else {
-    //   this.clicked = true;
-    // }
+  }
+
+  onDelete(selectedScooter: Scooter) {
+    this.scooters = this.scooters.filter(scooter => selectedScooter.id != scooter.id)
+    this.selectedScooter = <Scooter>{};
   }
 }

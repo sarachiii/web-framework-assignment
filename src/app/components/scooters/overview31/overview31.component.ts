@@ -19,7 +19,6 @@ export class Overview31Component implements OnInit {
     for (let i = 0; i < 8; i++) {
       this.scooters.push(Scooter.createSampleScooter(this.pId));
       this.pId += 3; //increase with a (random) increment of about 3 for each new scooter?
-      console.log(this.scooters[i]);
     }
   }
 

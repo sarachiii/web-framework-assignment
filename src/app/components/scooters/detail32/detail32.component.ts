@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Scooter} from "../../../models/scooter";
 
 @Component({
@@ -8,14 +8,14 @@ import {Scooter} from "../../../models/scooter";
 })
 export class Detail32Component implements OnInit {
   @Input() selectedScooterFromOverview : Scooter;
- // @Output() onDelete
+  @Output() deletedSelected = new EventEmitter<Scooter>();
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
   onDelete(){
+    this.deletedSelected.emit(this.selectedScooterFromOverview);
   }
-
-
 }

@@ -5,7 +5,7 @@ enum ScooterStatus {
 }
 
 export class Scooter {
-  public id: number;
+  public id: number = 29997;
   public tag: string;
   public status: ScooterStatus;
   public gpsLocation: string;
