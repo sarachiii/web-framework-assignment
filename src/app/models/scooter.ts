@@ -49,4 +49,9 @@ export class Scooter {
     let batteryCharge = Math.floor(Math.random() * (100 - 5 + 1) + 5);
     return new Scooter(pId, tag, status, gpsLocation, mileage, batteryCharge);
   }
+
+  // static copyConstructor(scooter:Scooter): Scooter {
+  //   if(scooter == null) return null;
+  //   return Object.assign(new Scooter(0), scooter);
+  // }
 }
