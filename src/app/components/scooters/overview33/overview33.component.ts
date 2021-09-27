@@ -10,8 +10,6 @@ import {ScootersService} from "../../../services/scooters.service";
 })
 export class Overview33Component implements OnInit {
 
-  pId: number = 30000;
-  clicked: boolean = false;
   selectedScooter: Scooter = <Scooter>{};
 
   constructor(private scootersService: ScootersService) {}
@@ -29,9 +27,8 @@ export class Overview33Component implements OnInit {
   }
 
   onAddScooter() {
-    let newScooter = Scooter.createSampleScooter(this.pId);
-    this.scooters.push(newScooter);
-    this.pId += 3; // increase with a (random) increment of about 3 for each new scooter?
+    let newScooter = Scooter.createSampleScooter();
+    this.scootersService.save(newScooter);
     this.onSelect(newScooter);
   }
 
@@ -50,5 +47,6 @@ export class Overview33Component implements OnInit {
 
   onSave(scooter: Scooter){
     this.scootersService.save(scooter);
+    this.selectedScooter = <Scooter>{};
   }
 }

@@ -21,11 +21,18 @@ export class ScootersService {
     return this.scooters.find(scooter => scooter.id === id);
   }
 
-  public save(scooter: Scooter): Scooter{
-    if(scooter.id === 0){
+  public save(scooter: Scooter): Scooter {
+    if (scooter.id === 0) {
       scooter.id = this.nextId();
+      this.scooters.push(scooter);
+    } else {
+      for (let i = 0; i < this.scooters.length; i++) {
+        if (this.scooters[i].id == scooter.id) {
+          this.scooters[i] = scooter;
+          break;
+        }
+      }
     }
-    this.scooters.push(scooter);
     return scooter;
   }
 
