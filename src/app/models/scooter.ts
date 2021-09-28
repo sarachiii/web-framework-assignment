@@ -18,7 +18,8 @@ export class Scooter {
   static newLatitude: number;
   static newLongitude: number;
 
-  constructor(pId: number, tag: string, status: ScooterStatus, gpsLocation: string, mileage: number, batteryCharge: number) {
+  constructor(pId: number, tag: string = "", status: ScooterStatus = ScooterStatus.idle, gpsLocation: string = "",
+              mileage: number = 0, batteryCharge: number = 0) {
     this.id = pId;
     this.tag = tag;
     this.status = status;
@@ -50,8 +51,8 @@ export class Scooter {
     return new Scooter(pId, tag, status, gpsLocation, mileage, batteryCharge);
   }
 
-  // static copyConstructor(scooter:Scooter): Scooter {
-  //   if(scooter == null) return null;
-  //   return Object.assign(new Scooter(0), scooter);
-  // }
+  static copyConstructor(scooter:Scooter): Scooter {
+    if(scooter == null) return null;
+    return Object.assign(new Scooter(0), scooter);
+  }
 }

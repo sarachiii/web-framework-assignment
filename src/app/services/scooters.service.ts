@@ -17,11 +17,11 @@ export class ScootersService {
     return this.scooters;
   }
 
-  public findById(id: number): Scooter {
-    return this.scooters.find(scooter => scooter.id === id);
+  public findById(id: number): Scooter | null {
+    return this.scooters.find(scooter => scooter.id === id) || null;
   }
 
-  public save(scooter: Scooter): Scooter {
+  public save(scooter: Scooter): Scooter{
     if (scooter.id === 0) {
       scooter.id = this.nextId();
       this.scooters.push(scooter);

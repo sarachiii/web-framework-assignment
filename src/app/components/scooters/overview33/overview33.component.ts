@@ -15,11 +15,6 @@ export class Overview33Component implements OnInit {
   constructor(private scootersService: ScootersService) {}
 
   ngOnInit() {
-    this.scooters;
-  }
-
-  findById(id: number): Scooter {
-    return this.scootersService.findById(id);
   }
 
   get scooters(): Scooter[]{
@@ -47,6 +42,10 @@ export class Overview33Component implements OnInit {
 
   onSave(scooter: Scooter){
     this.scootersService.save(scooter);
+    this.selectedScooter = <Scooter>{};
+  }
+
+  onCancel(){
     this.selectedScooter = <Scooter>{};
   }
 }
