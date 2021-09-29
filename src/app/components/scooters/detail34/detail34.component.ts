@@ -3,7 +3,7 @@ import {Scooter} from "../../../models/scooter";
 import {ScootersService} from "../../../services/scooters.service";
 
 @Component({
-  selector: 'app-detail34',
+  selector: 'app-scooters-detail34',
   templateUrl: './detail34.component.html',
   styleUrls: ['./detail34.component.css'],
   providers: [ScootersService]
