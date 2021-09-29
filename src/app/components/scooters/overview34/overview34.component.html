@@ -1,5 +1,5 @@
 <h2>Scooters in your neighbourhood:</h2>
-
+<p>Selected scooter id = {{selectedScooter.id}}</p>
 <div class="float-left">
   <table class="table table-bordered table-hover text-center mx-2">
     <thead>
@@ -22,11 +22,12 @@
 <div *ngIf="selectedScooter.id === undefined; else detail34" class="float-left">Select a scooter from the left page!</div>
 <ng-template #detail34>
   <ng-container>
-    <app-scooters-detail34
-      [_selectedScooterFromOverview]="selectedScooter"
-      (deletedSelected)="onDelete($event)"
-      (saveSelected)="onSave($event)"
-      (cancelSelected)="onCancel()">
-    </app-scooters-detail34>
+    <router-outlet></router-outlet>
+<!--    <app-scooters-detail34-->
+<!--      [_selectedScooterFromOverview]="selectedScooter"-->
+<!--      (deletedSelected)="onDelete($event)"-->
+<!--      (saveSelected)="onSave($event)"-->
+<!--      (cancelSelected)="onCancel()">-->
+<!--    </app-scooters-detail34>-->
   </ng-container>
 </ng-template>

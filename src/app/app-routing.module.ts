@@ -7,13 +7,22 @@ import {Overview32Component} from "./components/scooters/overview32/overview32.c
 import {Overview33Component} from "./components/scooters/overview33/overview33.component";
 import {Overview34Component} from "./components/scooters/overview34/overview34.component";
 import {UnknownRouteComponent} from "./components/unknown-route/unknown-route.component";
+import {Detail34Component} from "./components/scooters/detail34/detail34.component";
 
 const routes: Routes = [
   { path: 'home', component: WelcomeComponent },
   { path: 'scooters/overview31', component: Overview31Component},
   { path: 'scooters/overview32', component: Overview32Component},
   { path: 'scooters/overview33', component: Overview33Component},
-  { path: 'scooters/overview34', component: Overview34Component},
+  { path: 'scooters/overview34', component: Overview34Component, children: [
+      {
+        path: ':id',
+        component: Detail34Component
+      },
+    ],
+  },
+  // { path: 'scooters/overview34', component: Overview34Component},
+  // { path: 'scooters/overview34/:id', component: Detail34Component},
   { path: '', redirectTo: '/home', pathMatch: 'full'},
   { path: '**', component: UnknownRouteComponent}
 ];
