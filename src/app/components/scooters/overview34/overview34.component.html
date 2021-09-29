@@ -19,14 +19,14 @@
   <button class="btn-primary mx-2" (click)="onAddScooter()">Add Scooter</button>
 </div>
 
-<div *ngIf="selectedScooter.id === undefined; else detail33" class="float-left">Select a scooter from the left page!</div>
-<ng-template #detail33>
+<div *ngIf="selectedScooter.id === undefined; else detail34" class="float-left">Select a scooter from the left page!</div>
+<ng-template #detail34>
   <ng-container>
-    <app-scooters-detail33
+    <app-scooters-detail34
       [_selectedScooterFromOverview]="selectedScooter"
       (deletedSelected)="onDelete($event)"
       (saveSelected)="onSave($event)"
       (cancelSelected)="onCancel()">
-    </app-scooters-detail33>
+    </app-scooters-detail34>
   </ng-container>
 </ng-template>
