@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-unknown-route',
@@ -6,8 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./unknown-route.component.css']
 })
 export class UnknownRouteComponent implements OnInit {
+  currentRoute: string;
 
-  constructor() { }
+  constructor(private router: Router) {
+    this.currentRoute = this.router.url;
+  }
 
   ngOnInit(): void {
   }
