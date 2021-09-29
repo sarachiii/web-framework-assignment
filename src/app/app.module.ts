@@ -11,6 +11,8 @@ import { Overview32Component } from './components/scooters/overview32/overview32
 import { Detail32Component } from './components/scooters/detail32/detail32.component';
 import { Overview33Component } from './components/scooters/overview33/overview33.component';
 import { Detail33Component } from './components/scooters/detail33/detail33.component';
+import {AppRoutingModule} from "./app-routing.module";
+import { UnknownRouteComponent } from './components/unknown-route/unknown-route.component';
 
 @NgModule({
   declarations: [
@@ -23,12 +25,13 @@ import { Detail33Component } from './components/scooters/detail33/detail33.compo
     Detail32Component,
     Overview33Component,
     Detail33Component,
-
+    UnknownRouteComponent,
   ],
-    imports: [
-        BrowserModule,
-        FormsModule
-    ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    AppRoutingModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

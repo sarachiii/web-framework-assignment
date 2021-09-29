@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" routerLink="/">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
@@ -15,10 +15,10 @@
             Scooters
           </a>
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Lime</a></li>
-            <li><a class="dropdown-item" href="#">Link</a></li>
-            <li><a class="dropdown-item" href="#">Tier</a></li>
-            <li><a class="dropdown-item" href="#">Bird</a></li>
+            <li><a class="dropdown-item" routerLinkActive="active" routerLink="/scooters/overview31">All scooters list</a></li>
+            <li><a class="dropdown-item" routerLinkActive="active" routerLink="/scooters/overview32">Scooters edit (component store)</a></li>
+            <li><a class="dropdown-item" routerLinkActive="active" routerLink="/scooters/overview33">Scooters edit (from service)</a></li>
+            <li><a class="dropdown-item" routerLinkActive="active">Scooters edit (routed)</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -27,14 +27,14 @@
             My trips
           </a>
           <ul class="dropdown-menu dropdown-menu-dark">
-            <li><a class="dropdown-item" href="#">Last week</a></li>
-            <li><a class="dropdown-item" href="#">Last month</a></li>
+            <li><a class="dropdown-item">Last week</a></li>
+            <li><a class="dropdown-item">Last month</a></li>
           </ul>
         </li>
       </ul>
         <ul class="navbar-nav ml-auto">
-        <li class="nav-item "><a class="nav-link " href="#">Sign up</a></li>
-        <li class="nav-item "><a class="nav-link" href="#">Log in</a></li>
+        <li class="nav-item "><a class="nav-link " routerLink="/sign-up">Sign up</a></li>
+        <li class="nav-item "><a class="nav-link" routerLink="/sign-out">Log in</a></li>
       </ul>
     </div>
   </div>
