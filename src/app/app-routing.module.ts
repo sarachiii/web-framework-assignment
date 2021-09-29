@@ -5,6 +5,7 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
 import {Overview31Component} from "./components/scooters/overview31/overview31.component";
 import {Overview32Component} from "./components/scooters/overview32/overview32.component";
 import {Overview33Component} from "./components/scooters/overview33/overview33.component";
+import {Overview34Component} from "./components/scooters/overview34/overview34.component";
 import {UnknownRouteComponent} from "./components/unknown-route/unknown-route.component";
 
 const routes: Routes = [
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'scooters/overview31', component: Overview31Component},
   { path: 'scooters/overview32', component: Overview32Component},
   { path: 'scooters/overview33', component: Overview33Component},
+  { path: 'scooters/overview34', component: Overview34Component},
   { path: '', redirectTo: '/home', pathMatch: 'full'},
   { path: '**', component: UnknownRouteComponent}
 ];
