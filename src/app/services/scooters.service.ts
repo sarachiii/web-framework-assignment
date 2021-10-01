@@ -6,8 +6,9 @@ import {Scooter} from "../models/scooter";
 })
 export class ScootersService {
   private lastId: number = 30000;
-  public scooters: Scooter[] = [];
+  public scooters: Scooter[];
   constructor() {
+    this.scooters = [];
     for (let i = 0; i < 8; i++) {
       this.save(Scooter.createSampleScooter(0));
     }

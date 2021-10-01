@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Scooter} from "../../../models/scooter";
 import {ScootersService} from "../../../services/scooters.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
+import {relative} from "@angular/compiler-cli/src/ngtsc/file_system";
 
 @Component({
   selector: 'app-overview34',
@@ -24,6 +25,13 @@ export class Overview34Component implements OnInit {
           this.selectedScooter.id = params['id'];
         }
       );
+
+    this.activatedRoute
+      .firstChild?.params
+      .subscribe((params: Params) => {
+        this.selectedScooter =
+          this.scooters.find(c => c.id == params.id)
+      });
   }
 
   get scooters(): Scooter[]{
@@ -31,21 +39,17 @@ export class Overview34Component implements OnInit {
   }
 
   onSelect(scooter: Scooter){
+    if (scooter != null && scooter.id != this.selectedScooter?.id){
+      this.router.navigate([scooter.id], {relativeTo: this.activatedRoute});
+    } else {
+      this.router.navigate(['../overview34'], {relativeTo: this.activatedRoute});
+    }
 
     //If the same scooter is clicked twice, unselect current scooter by emptying the list
     if(scooter.id === this.selectedScooter.id){
       this.selectedScooter = <Scooter>{};
     } else {
       this.selectedScooter = scooter;
-    }
-
-    if (scooter != null && scooter.id != this.selectedScooter?.id){
-      this.router.navigate([scooter.id], {relativeTo: this.activatedRoute});
-      console.log("Test1")
-    } else {
-      //TODO navigate to the parent path to unselect the selectedScooter
-      console.log("You clicked the same scooter");
-      // this.selectedScooter = <Scooter>{};
     }
   }
 
@@ -54,14 +58,6 @@ export class Overview34Component implements OnInit {
     this.scootersService.save(newScooter);
     this.onSelect(newScooter);
   }
-  //
-  // onSelect(scooter: Scooter): void {
-  //   if(scooter.id === this.selectedScooter.id){
-  //     this.selectedScooter = <Scooter>{};
-  //   } else {
-  //     this.selectedScooter = scooter;
-  //   }
-  // }
 
   onDelete(selectedScooter: Scooter) {
     this.scootersService.deleteById(selectedScooter.id);

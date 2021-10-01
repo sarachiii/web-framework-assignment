@@ -21,8 +21,7 @@ const routes: Routes = [
       },
     ],
   },
-  // { path: 'scooters/overview34', component: Overview34Component},
-  // { path: 'scooters/overview34/:id', component: Detail34Component},
+  // { path: 'scooters/overview34', redirectTo: '/scooters/overview34/-', pathMatch: 'full'},
   { path: '', redirectTo: '/home', pathMatch: 'full'},
   { path: '**', component: UnknownRouteComponent}
 ];
