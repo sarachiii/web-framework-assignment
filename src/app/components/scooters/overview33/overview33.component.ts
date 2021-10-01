@@ -34,18 +34,4 @@ export class Overview33Component implements OnInit {
       this.selectedScooter = scooter;
     }
   }
-
-  onDelete(selectedScooter: Scooter) {
-    this.scootersService.deleteById(selectedScooter.id);
-    this.selectedScooter = <Scooter>{};
-  }
-
-  onSave(scooter: Scooter){
-    this.scootersService.save(scooter);
-    this.selectedScooter = <Scooter>{};
-  }
-
-  onCancel(){
-    this.selectedScooter = <Scooter>{};
-  }
 }

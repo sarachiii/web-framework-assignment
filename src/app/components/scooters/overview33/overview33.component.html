@@ -23,10 +23,7 @@
 <ng-template #detail33>
   <ng-container>
     <app-scooters-detail33
-      [_selectedScooterFromOverview]="selectedScooter"
-      (deletedSelected)="onDelete($event)"
-      (saveSelected)="onSave($event)"
-      (cancelSelected)="onCancel()">
+      [(selectedScooterFromOverview)]="selectedScooter">
     </app-scooters-detail33>
   </ng-container>
 </ng-template>

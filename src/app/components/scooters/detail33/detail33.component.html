@@ -31,7 +31,7 @@
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <button class="btn btn-danger float-end" [disabled]="myForm.dirty && !clicked" (click)="onDelete()">Delete</button>
+          <button class="btn btn-danger float-end"  (click)="onDelete()">Delete</button>
           <button class="btn btn-primary float-end" [disabled]="!myForm.dirty" (click)="onSave(); clicked = true;">Save</button>
           <button class="btn btn-outline-primary float-end" (click)="onClear()">Clear</button>
           <button class="btn btn-outline-primary float-end" [disabled]="!myForm.dirty" (click)="onReset(); clicked = true;">Reset</button>
