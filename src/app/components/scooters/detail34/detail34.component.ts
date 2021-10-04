@@ -62,8 +62,8 @@ export class Detail34Component implements OnInit {
     }
   }
 
-  set selectedScooterFromOverview(value: Scooter) {
-    this._selectedScooterFromOverview = value;
+  set selectedScooterFromOverview(scooter: Scooter) {
+    this._selectedScooterFromOverview = scooter;
   }
 
   get selectedScooterFromOverview(): Scooter {

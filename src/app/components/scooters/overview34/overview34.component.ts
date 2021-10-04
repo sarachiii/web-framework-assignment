@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {Scooter} from "../../../models/scooter";
 import {ScootersService} from "../../../services/scooters.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import {relative} from "@angular/compiler-cli/src/ngtsc/file_system";
 
 @Component({
   selector: 'app-overview34',

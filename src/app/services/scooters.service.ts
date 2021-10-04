@@ -1,17 +1,20 @@
 import { Injectable } from '@angular/core';
 import {Scooter} from "../models/scooter";
+import {EventEmitter} from "@angular/core";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ScootersService {
   private lastId: number = 30000;
-  public scooters: Scooter[];
+  public scooters: Scooter[] = [];
+  scootersChanged = new EventEmitter<Scooter[]>();
+
   constructor() {
-    this.scooters = [];
     for (let i = 0; i < 8; i++) {
       this.save(Scooter.createSampleScooter(0));
     }
+    console.log(this.scooters)
   }
 
   public findAll(): Scooter[]{
@@ -26,10 +29,12 @@ export class ScootersService {
     if (scooter.id === 0) {
       scooter.id = this.nextId();
       this.scooters.push(scooter);
+      this.scootersChanged.emit(this.scooters.slice());
     } else {
       for (let i = 0; i < this.scooters.length; i++) {
         if (this.scooters[i].id == scooter.id) {
           this.scooters[i] = scooter;
+          this.scootersChanged.emit(this.scooters.slice());
           break;
         }
       }

@@ -78,12 +78,4 @@ export class Detail33Component implements OnInit {
       if (this.scooter) this.scooter = <Scooter>{...this.scootersService.findById(this.scooter.id)}
     }
   }
-
-  // set selectedScooterFromOverview(scooter: Scooter) {
-  //   this._selectedScooterFromOverview = scooter;
-  // }
-  //
-  // get selectedScooterFromOverview(): Scooter {
-  //   return this._selectedScooterFromOverview;
-  // }
 }
