@@ -6,7 +6,6 @@ import {ScootersService} from "../../../services/scooters.service";
   selector: 'app-scooters-detail33',
   templateUrl: './detail33.component.html',
   styleUrls: ['./detail33.component.css'],
-  providers: [ScootersService]
 })
 export class Detail33Component implements OnInit {
   @Input()
@@ -24,7 +23,6 @@ export class Detail33Component implements OnInit {
   clicked = false;
 
   constructor(private scootersService: ScootersService) {
-    this.scooter = <Scooter>{};
   }
 
   ngOnInit(): void {
