@@ -31,6 +31,14 @@ export class ScootersService {
       this.scooters.push(scooter);
       this.scootersChanged.emit(this.scooters.slice());
     } else {
+      // let index: number = this.scooters.findIndex(e => e.id == scooter.id);
+      // let oldScooter: Scooter = this.scooters[index];
+      // if (oldScooter) {
+      //   this.scooters[index] = scooter;
+      // } else {
+      //   this.scooters.push(scooter);
+      // }
+      // return oldScooter;
       for (let i = 0; i < this.scooters.length; i++) {
         if (this.scooters[i].id == scooter.id) {
           this.scooters[i] = scooter;
