@@ -19,39 +19,40 @@ export class Detail33Component implements OnInit {
   get selectedScooterFromOverview(): Scooter {
     return this._selectedScooterFromOverview;
   }
+
   @Output() selectedScooterFromOverviewChange = new EventEmitter<Scooter>();
-  private _selectedScooterFromOverview : Scooter;
+  private _selectedScooterFromOverview: Scooter;
+
+  @Output() deletedSelected = new EventEmitter<Scooter>();
 
   constructor(private scootersService: ScootersService) {
   }
 
   ngOnInit(): void {
-    // this.scooter = Scooter.copyConstructor(this.selectedScooterFromOverview);
   }
 
-  onConfirm(){
-    let changes: boolean = this.scooter.equalsTo(this.scootersService.findById(this.scooter.id));
-    console.log('s',this.scooter)
-    console.log('s2',this.scootersService.findById(this.scooter.id))
-    console.log(changes)
-    return changes && confirm("Are you sure you want to discard unsaved changes?");
+  onChanges() {
+    return this.scooter.equalsTo(this.scootersService.findById(this.scooter.id));
   }
 
-  onDelete(){
-    if(this.onConfirm()) {
-      this.scootersService.deleteById(this.scooter.id);
-      this.selectedScooterFromOverview = <Scooter>{};
-      this.selectedScooterFromOverviewChange.emit(this.selectedScooterFromOverview);
+  onConfirm() {
+    return !this.onChanges ? confirm("Are you sure you want to discard unsaved changes?") : true;
+  }
+
+  onDelete() {
+    if (this.onConfirm()) {
+        this.scootersService.deleteById(this.scooter.id);
+        this.deletedSelected.emit(this.scooter);
     }
   }
 
-  onSave(){
+  onSave() {
     this.scootersService.save(this.scooter);
   }
 
-  onClear(){
-    if(confirm("Are you sure you want to discard unsaved changes?")) {
-      if(this.scooter) {
+  onClear() {
+    if (confirm("Are you sure you want to discard unsaved changes?")) {
+      if (this.scooter) {
         Object.assign(this.scooter, {
           tag: "",
           status: "",
@@ -63,16 +64,14 @@ export class Detail33Component implements OnInit {
     }
   }
 
-  onCancel(){
-    if(confirm("Are you sure you want to discard unsaved changes?")) {
-      // this.cancelSelected.emit(this.scooter);
+  onCancel() {
+    if (confirm("Are you sure you want to discard unsaved changes?")) {
       // this.selectedScooterFromOverview = this.scootersService.findById(this.scooter.id);
-      this.selectedScooterFromOverviewChange.emit(this.scooter);
     }
   }
 
-  onReset(){
-    if(confirm("Are you sure you want to discard unsaved changes?")) {
+  onReset() {
+    if (confirm("Are you sure you want to discard unsaved changes?")) {
       if (this.scooter) this.scooter = <Scooter>{...this.scootersService.findById(this.scooter.id)}
     }
   }
