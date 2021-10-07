@@ -6,11 +6,11 @@
       <div class="row">
         <div class="col-sm-12 form-group">
           <label for="tag">Tag:</label>
-          <input type="text" id="tag" name="tag" [ngModel]="scooter.tag" class="form-control">
+          <input type="text" id="tag" name="tag" [(ngModel)]="scooter.tag" class="form-control">
         </div>
         <div class="col-sm-12 form-group">
           <label for="status">Status:</label>
-          <select id="status" class="form-control" name="status" [ngModel]="scooter.status">
+          <select id="status" class="form-control" name="status" [(ngModel)]="scooter.status">
             <option value="IDLE">IDLE</option>
             <option value="INUSE">INUSE</option>
             <option value="MAINTENANCE">MAINTENANCE</option>
@@ -18,15 +18,15 @@
         </div>
         <div class="col-sm-12 form-group">
           <label for="location">GPS-Location: </label>
-          <input type="text" id="location" class="form-control" name="location" [ngModel]="scooter.gpsLocation">
+          <input type="text" id="location" class="form-control" name="location" [(ngModel)]="scooter.gpsLocation">
         </div>
         <div class="col-sm-12 form-group">
           <label for="mileage">Mileage: </label>
-          <input type="text" id="mileage" class="form-control" name="mileage" [ngModel]="scooter.mileage">
+          <input type="text" id="mileage" class="form-control" name="mileage" [(ngModel)]="scooter.mileage">
         </div>
         <div class="col-sm-12 form-group">
           <label for="battery">Battery Charge: </label>
-          <input type="text" id="battery" class="form-control" name="battery" [ngModel]="scooter.batteryCharge">
+          <input type="text" id="battery" class="form-control" name="battery" [(ngModel)]="scooter.batteryCharge">
         </div>
       </div>
       <div class="row">
