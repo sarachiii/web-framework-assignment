@@ -23,7 +23,7 @@ export class Detail33Component implements OnInit {
   @Output() selectedScooterFromOverviewChange = new EventEmitter<Scooter>();
   private _selectedScooterFromOverview: Scooter;
 
-  @Output() deletedSelected = new EventEmitter<Scooter>();
+  @Output() unselectedEvent = new EventEmitter<Scooter>();
 
   constructor(private scootersService: ScootersService) {
   }
@@ -42,17 +42,17 @@ export class Detail33Component implements OnInit {
   onDelete() {
     if (this.onConfirm()) {
         this.scootersService.deleteById(this.scooter.id);
-        this.deletedSelected.emit(this.scooter);
+        this.unselectedEvent.emit(this.scooter);
     }
   }
 
   onSave() {
     this.scootersService.save(this.scooter);
+    this.unselectedEvent.emit(this.scooter);
   }
 
   onClear() {
-    if (confirm("Are you sure you want to discard unsaved changes?")) {
-      if (this.scooter) {
+    if (this.onConfirm()) {
         Object.assign(this.scooter, {
           tag: "",
           status: "",
@@ -60,19 +60,19 @@ export class Detail33Component implements OnInit {
           mileage: 0,
           batteryCharge: 0
         })
-      }
     }
   }
 
   onCancel() {
-    if (confirm("Are you sure you want to discard unsaved changes?")) {
-      // this.selectedScooterFromOverview = this.scootersService.findById(this.scooter.id);
+    if (this.onConfirm()) {
+      this.scooter = this.scootersService.findById(this.scooter.id);
+      this.unselectedEvent.emit(this.scooter);
     }
   }
 
   onReset() {
-    if (confirm("Are you sure you want to discard unsaved changes?")) {
-      if (this.scooter) this.scooter = <Scooter>{...this.scootersService.findById(this.scooter.id)}
+    if (this.onConfirm()) {
+      this.scooter = this.scootersService.findById(this.scooter.id);
     }
   }
 }
