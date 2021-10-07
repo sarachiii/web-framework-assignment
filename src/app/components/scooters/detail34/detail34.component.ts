@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Scooter} from "../../../models/scooter";
 import {ScootersService} from "../../../services/scooters.service";
+import {ActivatedRoute, Router, Params} from "@angular/router";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-scooters-detail34',
@@ -18,12 +20,23 @@ export class Detail34Component implements OnInit {
   @Output() saveSelected = new EventEmitter<Scooter>();
   scooter: Scooter;
   clicked = false;
+  private childParamsSubscription : Subscription;
 
-  constructor(private scootersService: ScootersService) {
+  constructor(private scootersService: ScootersService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.scooter = Scooter.copyConstructor(this._selectedScooterFromOverview);
   }
 
   ngOnInit(): void {
+    this.childParamsSubscription =
+      this.activatedRoute.params
+        .subscribe((params: Params) => {
+
+          this._selectedScooterFromOverview = params['id'];
+        })
+  }
+
+  ngOnDestroy(): void{
+    this.childParamsSubscription && this.childParamsSubscription.unsubscribe();
   }
 
   onDelete(){

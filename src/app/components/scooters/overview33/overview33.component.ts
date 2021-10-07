@@ -5,14 +5,13 @@ import {ScootersService} from "../../../services/scooters.service";
 @Component({
   selector: 'app-overview33',
   templateUrl: './overview33.component.html',
-  styleUrls: ['./overview33.component.css'],
-  providers: [ScootersService]
+  styleUrls: ['./overview33.component.css']
 })
 export class Overview33Component implements OnInit {
-
   selectedScooter: Scooter = <Scooter>{};
 
-  constructor(private scootersService: ScootersService) {}
+  constructor(private scootersService: ScootersService) {
+  }
 
   ngOnInit() {
   }

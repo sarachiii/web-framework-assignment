@@ -24,6 +24,7 @@ export class Overview34Component implements OnInit {
           this.selectedScooter.id = params['id'];
         }
       );
+    console.log(this.selectedScooter.id)
 
     this.activatedRoute
       .firstChild?.params
@@ -39,9 +40,11 @@ export class Overview34Component implements OnInit {
 
   onSelect(scooter: Scooter){
     if (scooter != null && scooter.id != this.selectedScooter?.id){
-      this.router.navigate([scooter.id], {relativeTo: this.activatedRoute});
+      this.router.navigate([scooter.id], {relativeTo: this.activatedRoute})
+        .catch(reason => console.error(reason));
     } else {
-      this.router.navigate(['../overview34'], {relativeTo: this.activatedRoute});
+      this.router.navigate(['../overview34'], {relativeTo: this.activatedRoute})
+        .catch(reason => console.error(reason));
     }
 
     //If the same scooter is clicked twice, unselect current scooter by emptying the list

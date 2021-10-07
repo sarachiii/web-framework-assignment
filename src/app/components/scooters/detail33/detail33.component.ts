@@ -5,12 +5,14 @@ import {ScootersService} from "../../../services/scooters.service";
 @Component({
   selector: 'app-scooters-detail33',
   templateUrl: './detail33.component.html',
-  styleUrls: ['./detail33.component.css'],
+  styleUrls: ['./detail33.component.css']
 })
 export class Detail33Component implements OnInit {
+  scooter: Scooter;
+  clicked = false;
+
   @Input()
   set selectedScooterFromOverview(scooter: Scooter) {
-    this._selectedScooterFromOverview = scooter;
     this.scooter = Scooter.copyConstructor(scooter);
   }
 
@@ -19,8 +21,6 @@ export class Detail33Component implements OnInit {
   }
   @Output() selectedScooterFromOverviewChange = new EventEmitter<Scooter>();
   private _selectedScooterFromOverview : Scooter;
-  scooter: Scooter;
-  clicked = false;
 
   constructor(private scootersService: ScootersService) {
   }
