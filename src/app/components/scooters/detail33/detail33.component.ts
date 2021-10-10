@@ -35,7 +35,11 @@ export class Detail33Component implements OnInit {
   }
 
   onConfirm() {
-    return !this.onChanges ? confirm("Are you sure you want to discard unsaved changes?") : true;
+    if(this.onChanges()){
+      return confirm("Are you sure you want to discard unsaved changes?");
+    } else {
+      return true;
+    }
   }
 
   onDelete() {
