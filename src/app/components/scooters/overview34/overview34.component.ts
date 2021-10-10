@@ -34,11 +34,20 @@ export class Overview34Component implements OnInit {
     this.onSelect(newScooter);
   }
 
-  onSelect(scooter: Scooter): void {
-    if (scooter != null && scooter.id != this.selectedScooter?.id) {
-      this.router.navigate([scooter.id], {relativeTo: this.activatedRoute});
+  onSelect(scooter: Scooter){
+    if (scooter != null && scooter.id != this.selectedScooter?.id){
+      this.router.navigate([scooter.id], {relativeTo: this.activatedRoute})
+        .catch(reason => console.error(reason));
     } else {
-      this.router.navigate(['../overview34'], {relativeTo: this.activatedRoute});
+      this.router.navigate(['../overview34'], {relativeTo: this.activatedRoute})
+        .catch(reason => console.error(reason));
+    }
+
+    //If the same scooter is clicked twice, unselect current scooter by emptying the list
+    if(scooter.id === this.selectedScooter.id){
+      this.selectedScooter = <Scooter>{};
+    } else {
+      this.selectedScooter = scooter;
     }
   }
 }
