@@ -7,7 +7,6 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
   selector: 'app-overview34',
   templateUrl: './overview34.component.html',
   styleUrls: ['./overview34.component.css'],
-  providers: [ScootersService]
 })
 
 export class Overview34Component implements OnInit {
@@ -24,7 +23,6 @@ export class Overview34Component implements OnInit {
           this.selectedScooter.id = params['id'];
         }
       );
-    console.log(this.selectedScooter.id)
 
     this.activatedRoute
       .firstChild?.params

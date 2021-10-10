@@ -10,7 +10,6 @@ export class Overview32Component implements OnInit {
 
   scooters: Scooter[];
   pId: number = 30000;
-  clicked: boolean = false;
   selectedScooter: Scooter = <Scooter>{};
 
   constructor() {

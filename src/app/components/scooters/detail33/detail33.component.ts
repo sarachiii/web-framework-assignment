@@ -9,7 +9,6 @@ import {ScootersService} from "../../../services/scooters.service";
 })
 export class Detail33Component implements OnInit {
   scooter: Scooter;
-  clicked = false;
 
   @Input()
   set selectedScooterFromOverview(scooter: Scooter) {
