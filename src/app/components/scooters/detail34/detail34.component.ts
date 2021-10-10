@@ -54,12 +54,13 @@ export class Detail34Component implements OnInit {
   onDelete() {
     if (this.scooter && this.onConfirm()) {
       this.scootersService.deleteById(this.scooter.id);
-      this.routeTo(-1)
+      this.routeTo();
     }
   }
 
   onSave() {
     this.scootersService.save(this.scooter);
+    this.routeTo();
   }
 
   onClear() {
@@ -77,8 +78,7 @@ export class Detail34Component implements OnInit {
   onCancel() {
     if (this.scooter && this.onConfirm()) {
       this.scooter = this.scootersService.findById(this.scooter.id);
-
-      this.routeTo('../../scooters/overview34/0');
+      this.routeTo();
     }
   }
 
@@ -88,8 +88,8 @@ export class Detail34Component implements OnInit {
     }
   }
 
-  routeTo(path: string | number): void {
-    this.router.navigate([path], { relativeTo: this.activatedRoute.parent })
+  routeTo(): void {
+    this.router.navigate(['../../scooters/overview34'], { relativeTo: this.activatedRoute.parent })
       .catch(reason => console.error(reason));
   }
 }
