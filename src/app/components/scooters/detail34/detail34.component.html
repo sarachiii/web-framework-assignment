@@ -1,16 +1,16 @@
 <div class="row">
-  <div class="float-left" style="background: bisque"> <!-- <strong>Update scooter {{selectedScooterFromOverview.tag}}
-    (id={{selectedScooterFromOverview.id}})</strong> --> Dit moet nog werkend gemaakt worden</div>
+  <div class="float-left" style="background: bisque"><strong>Update scooter {{scooter.tag}}
+    (id={{scooter.id}})</strong></div>
   <div class="col-xs-12">
     <form #myForm="ngForm">
       <div class="row">
         <div class="col-sm-12 form-group">
           <label for="tag">Tag:</label>
-          <input type="text" id="tag" name="tag" [(ngModel)]="selectedScooterFromOverview.tag" class="form-control">
+          <input type="text" id="tag" name="tag" [(ngModel)]="scooter.tag" class="form-control">
         </div>
         <div class="col-sm-12 form-group">
           <label for="status">Status:</label>
-          <select id="status" class="form-control" name="status" [(ngModel)]="selectedScooterFromOverview.status">
+          <select id="status" class="form-control" name="status" [(ngModel)]="scooter.status">
             <option value="IDLE">IDLE</option>
             <option value="INUSE">INUSE</option>
             <option value="MAINTENANCE">MAINTENANCE</option>
@@ -18,23 +18,23 @@
         </div>
         <div class="col-sm-12 form-group">
           <label for="location">GPS-Location: </label>
-          <input type="text" id="location" class="form-control" name="location" [(ngModel)]="selectedScooterFromOverview.gpsLocation">
+          <input type="text" id="location" class="form-control" name="location" [(ngModel)]="scooter.gpsLocation">
         </div>
         <div class="col-sm-12 form-group">
           <label for="mileage">Mileage: </label>
-          <input type="text" id="mileage" class="form-control" name="mileage" [(ngModel)]="selectedScooterFromOverview.mileage">
+          <input type="text" id="mileage" class="form-control" name="mileage" [(ngModel)]="scooter.mileage">
         </div>
         <div class="col-sm-12 form-group">
           <label for="battery">Battery Charge: </label>
-          <input type="text" id="battery" class="form-control" name="battery" [(ngModel)]="selectedScooterFromOverview.batteryCharge">
+          <input type="text" id="battery" class="form-control" name="battery" [(ngModel)]="scooter.batteryCharge">
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <button class="btn btn-danger float-end" [disabled]="myForm.dirty && !clicked" (click)="onDelete()">Delete</button>
-          <button class="btn btn-primary float-end" [disabled]="!myForm.dirty" (click)="onSave(); clicked = true;">Save</button>
+          <button class="btn btn-danger float-end" [disabled]="onChanges()" (click)="onDelete()">Delete</button>
+          <button class="btn btn-primary float-end" [disabled]="!onChanges()" (click)="onSave()">Save</button>
           <button class="btn btn-outline-primary float-end" (click)="onClear()">Clear</button>
-          <button class="btn btn-outline-primary float-end" [disabled]="!myForm.dirty" (click)="onReset(); clicked = true;">Reset</button>
+          <button class="btn btn-outline-primary float-end" [disabled]="!onChanges()" (click)="onReset()">Reset</button>
           <button class="btn btn-primary float-end" (click)="onCancel()">Cancel</button>
         </div>
       </div>
