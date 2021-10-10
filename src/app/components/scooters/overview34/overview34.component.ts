@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {Scooter} from "../../../models/scooter";
 import {ScootersService} from "../../../services/scooters.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
@@ -17,7 +17,17 @@ export class Overview34Component implements OnInit {
   }
 
   ngOnInit() {
-    this.activatedRoute.firstChild?.params
+    this.selectedScooter.id = this.activatedRoute.snapshot.params['id'];
+    this.activatedRoute.params
+      .subscribe(
+        (params: Params) => {
+          this.selectedScooter.id = params['id'];
+        }
+      );
+    console.log(this.selectedScooter.id)
+
+    this.activatedRoute
+      .firstChild?.params
       .subscribe((params: Params) => {
         this.selectedScooter =
           this.scooters.find(c => c.id == params.id)
