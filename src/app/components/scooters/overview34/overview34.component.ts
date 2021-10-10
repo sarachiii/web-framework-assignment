@@ -50,7 +50,6 @@ export class Overview34Component implements OnInit {
       this.router.navigate(['../overview34'], {relativeTo: this.activatedRoute})
         .catch(reason => console.error(reason));
     }
-
     //If the same scooter is clicked twice, unselect current scooter by emptying the list
     if(scooter.id === this.selectedScooter.id){
       this.selectedScooter = <Scooter>{};

@@ -9,7 +9,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let scooter of scooters;" (click)="onSelect(scooter);"
+    <tr *ngFor="let scooter of scooters;" (click)="onSelect(scooter); "
         [ngClass]="{'table-active': scooter.id === selectedScooter.id}">
       <td>{{scooter.tag}}</td>
       <td>{{scooter.status}}</td>

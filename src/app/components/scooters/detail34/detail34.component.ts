@@ -3,6 +3,7 @@ import {Scooter} from "../../../models/scooter";
 import {ScootersService} from "../../../services/scooters.service";
 import {Subscription} from "rxjs";
 import {ActivatedRoute, Params, Router} from "@angular/router";
+import {Overview34Component} from "../overview34/overview34.component";
 
 @Component({
   selector: 'app-scooters-detail34',
@@ -25,8 +26,6 @@ export class Detail34Component implements OnInit {
 
   @Output() selectedScooterFromOverviewChange = new EventEmitter<Scooter>();
   private _selectedScooterFromOverview: Scooter;
-
-  @Output() unselectedEvent = new EventEmitter<Scooter>();
 
   constructor(private scootersService: ScootersService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.scooter = Scooter.copyConstructor(this._selectedScooterFromOverview);
@@ -55,14 +54,12 @@ export class Detail34Component implements OnInit {
   onDelete() {
     if (this.scooter && this.onConfirm()) {
       this.scootersService.deleteById(this.scooter.id);
-      this.unselectedEvent.emit(this.scooter);
       this.routeTo(-1)
     }
   }
 
   onSave() {
     this.scootersService.save(this.scooter);
-    this.unselectedEvent.emit(this.scooter);
   }
 
   onClear() {
@@ -80,8 +77,8 @@ export class Detail34Component implements OnInit {
   onCancel() {
     if (this.scooter && this.onConfirm()) {
       this.scooter = this.scootersService.findById(this.scooter.id);
-      this.unselectedEvent.emit(this.scooter);
-      this.routeTo(-1)
+
+      this.routeTo('../../scooters/overview34/0');
     }
   }
 
