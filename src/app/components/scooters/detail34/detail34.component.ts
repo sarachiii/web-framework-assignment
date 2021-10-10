@@ -29,15 +29,15 @@ export class Detail34Component implements OnInit {
   @Output() unselectedEvent = new EventEmitter<Scooter>();
 
   constructor(private scootersService: ScootersService, private router: Router, private activatedRoute: ActivatedRoute) {
+    this.scooter = Scooter.copyConstructor(this._selectedScooterFromOverview);
   }
 
   ngOnInit(): void {
     this.childParamsSubscription =
       this.activatedRoute.params
         .subscribe((params: Params) => {
-          this.selectedScooterFromOverview = params['id'];
-        })
-    this.scooter = Scooter.copyConstructor(this._selectedScooterFromOverview);
+          this.selectedScooterFromOverview = this.scootersService.findById(parseInt(params['id']));
+    })
   }
 
   ngOnDestroy(): void{
