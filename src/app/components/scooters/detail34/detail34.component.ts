@@ -1,8 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Scooter} from "../../../models/scooter";
 import {ScootersService} from "../../../services/scooters.service";
-import {ActivatedRoute, Router, Params} from "@angular/router";
-import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-scooters-detail34',
@@ -27,8 +25,7 @@ export class Detail34Component implements OnInit {
 
   @Output() unselectedEvent = new EventEmitter<Scooter>();
 
-  constructor(private scootersService: ScootersService) {
-  }
+  constructor(public scootersService: ScootersService) {}
 
   ngOnInit(): void {
   }
@@ -42,7 +39,7 @@ export class Detail34Component implements OnInit {
   }
 
   onDelete() {
-    if (this.onConfirm()) {
+    if (this.scooter && this.onConfirm()) {
       this.scootersService.deleteById(this.scooter.id);
       this.unselectedEvent.emit(this.scooter);
     }
@@ -54,7 +51,7 @@ export class Detail34Component implements OnInit {
   }
 
   onClear() {
-    if (this.onConfirm()) {
+    if (this.scooter && this.onConfirm()) {
       Object.assign(this.scooter, {
         tag: "",
         status: "",
@@ -66,14 +63,14 @@ export class Detail34Component implements OnInit {
   }
 
   onCancel() {
-    if (this.onConfirm()) {
+    if (this.scooter && this.onConfirm()) {
       this.scooter = this.scootersService.findById(this.scooter.id);
       this.unselectedEvent.emit(this.scooter);
     }
   }
 
   onReset() {
-    if (this.onConfirm()) {
+    if (this.scooter && this.onConfirm()) {
       this.scooter = this.scootersService.findById(this.scooter.id);
     }
   }
