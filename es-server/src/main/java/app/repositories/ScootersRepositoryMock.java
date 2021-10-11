@@ -10,7 +10,7 @@ import java.util.List;
 public class ScootersRepositoryMock implements ScootersRepository{
 
   private List<Scooter> scooters = new ArrayList<>();
-  private int id;
+  private int id = 30001;
 
   public ScootersRepositoryMock() {
     for (int i = 0; i <= 7; i++) {
