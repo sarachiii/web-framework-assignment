@@ -10,7 +10,7 @@ import java.util.List;
 public class ScootersRepositoryMock implements ScootersRepository{
 
   private List<Scooter> scooters = new ArrayList<>();
-  private int id = 30000;
+  private long id = 30000;
 
   public ScootersRepositoryMock() {
     for (int i = 0; i <= 7; i++) {
@@ -36,17 +36,20 @@ public class ScootersRepositoryMock implements ScootersRepository{
 
   @Override
   public Scooter save(Scooter scooter) {
+    for (int i = 0; i < scooters.size(); i++) {
+      if (scooter.getId() == id) {
+        scooters.set(i, scooter);
+      }
+    }
+    if(scooter.getId() == 0){
+      scooters.add(scooter);
+    }
     return null;
   }
 
   @Override
   public Scooter deleteById(long id) {
-    for (Scooter scooter : scooters) {
-      if (scooter.getId() == id) {
-        scooters.remove(scooter.getId());
-        return null;
-      }
-    }
+    scooters.removeIf(scooter -> scooter.getId() == id);
     return null;
   }
 }
