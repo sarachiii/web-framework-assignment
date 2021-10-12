@@ -3,8 +3,8 @@ package app.rest;
 import app.models.Scooter;
 import app.repositories.ScootersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,6 +18,28 @@ public class ScootersController {
   public List<Scooter> getAllScooters() {
     return scootersRepo.findAll();
   }
+
+  @GetMapping("/scooters/{id}")
+  @ResponseBody
+  public Scooter getScooterById(@PathVariable Long id) {
+    return scootersRepo.findById(id);
+  }
+
+  @PostMapping("/scooters")
+  public ResponseEntity<Scooter> saveScooter(@RequestBody Scooter scooter) {
+
+    Scooter previous = scootersRepo.findById(scooter.getId());
+
+//    if(previous == null) {
+//      throw new UserNotFoundException("id="+user.getId());
+//    }
+//
+//    scootersRepo.save(scooter);
+//
+//    return ResponseEntity.ok().build();
+  }
+
+
 
   //3.5 C: Test 2 scooters
 
