@@ -16,14 +16,37 @@ public class ScootersRepositoryMock implements ScootersRepository{
     for (int i = 0; i <= 7; i++) {
       id++;
       this.scooters.add(Scooter.createSampleScooter(id));
-//      for (int j = 0; j < 3; j++) {
-//        id++;
-//      }
     }
   }
 
   @Override
   public List<Scooter> findAll() {
     return scooters;
+  }
+
+  @Override
+  public Scooter findById(long id) {
+    for (Scooter scooter : scooters) {
+      if (scooter.getId() == id) {
+        return scooter;
+      }
+    }
+    return null;
+  }
+
+  @Override
+  public Scooter save(Scooter scooter) {
+    return null;
+  }
+
+  @Override
+  public Scooter deleteById(long id) {
+    for (Scooter scooter : scooters) {
+      if (scooter.getId() == id) {
+        scooters.remove(scooter.getId());
+        return null;
+      }
+    }
+    return null;
   }
 }

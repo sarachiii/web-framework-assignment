@@ -73,4 +73,12 @@ public class Scooter {
 
     return new Scooter(id, tag, status, gpsLocation, batteryCharge, mileage, new int[0], null);
   }
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
 }
