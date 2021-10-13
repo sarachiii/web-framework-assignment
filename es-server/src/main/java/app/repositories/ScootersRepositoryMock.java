@@ -9,13 +9,13 @@ import java.util.List;
 @Component
 public class ScootersRepositoryMock implements ScootersRepository{
 
-  private List<Scooter> scooters = new ArrayList<>();
+  private static List<Scooter> scooters = new ArrayList<>();
   private long id = 30000;
 
   public ScootersRepositoryMock() {
     for (int i = 0; i <= 7; i++) {
       id++;
-      this.scooters.add(Scooter.createSampleScooter(id));
+      scooters.add(Scooter.createSampleScooter(id));
     }
   }
 
@@ -36,15 +36,20 @@ public class ScootersRepositoryMock implements ScootersRepository{
 
   @Override
   public Scooter save(Scooter scooter) {
-    for (int i = 0; i < scooters.size(); i++) {
-      if (scooter.getId() == id) {
-        scooters.set(i, scooter);
-      }
-    }
+
+    //if id is == 0, generate new unique id
     if(scooter.getId() == 0){
-      scooters.add(scooter);
+      scooter.setId(++id);
     }
-    return null;
+    scooters.add(scooter); //add scooter to scooters list
+
+    //update scooter if it already exists
+//    for (int i = 0; i < scooters.size(); i++) {
+//      if (scooters.get(i).getId() == scooter.getId()) {
+//        scooters.set(i, scooter);
+//      }
+//    }
+    return scooter;
   }
 
   @Override

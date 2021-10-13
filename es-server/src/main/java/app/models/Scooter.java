@@ -1,5 +1,6 @@
 package app.models;
 
+import java.util.Arrays;
 import java.util.Random;
 
 enum ScooterStatus {
@@ -24,6 +25,10 @@ public class Scooter {
   public static final double RADIUS = 0.035234;
   public static double newLatitude;
   public static double newLongitude;
+
+  protected Scooter(){
+
+  }
 
   public Scooter(long id, String tag, ScooterStatus status, String gpsLocation,
                  int batteryCharge, double mileage, int[] trips, String currentTrip) {
@@ -81,4 +86,91 @@ public class Scooter {
   public void setId(long id) {
     this.id = id;
   }
+
+  public String getTag() {
+    return tag;
+  }
+
+  public ScooterStatus getStatus() {
+    return status;
+  }
+
+  public String getGpsLocation() {
+    return gpsLocation;
+  }
+
+  public int getBatteryCharge() {
+    return batteryCharge;
+  }
+
+  public double getMileage() {
+    return mileage;
+  }
+
+  public int[] getTrips() {
+    return trips;
+  }
+
+  public String getCurrentTrip() {
+    return currentTrip;
+  }
+
+  public static double getNewLatitude() {
+    return newLatitude;
+  }
+
+  public static double getNewLongitude() {
+    return newLongitude;
+  }
+
+  public void setTag(String tag) {
+    this.tag = tag;
+  }
+
+  public void setStatus(ScooterStatus status) {
+    this.status = status;
+  }
+
+  public void setGpsLocation(String gpsLocation) {
+    this.gpsLocation = gpsLocation;
+  }
+
+  public void setBatteryCharge(int batteryCharge) {
+    this.batteryCharge = batteryCharge;
+  }
+
+  public void setMileage(double mileage) {
+    this.mileage = mileage;
+  }
+
+  public void setTrips(int[] trips) {
+    this.trips = trips;
+  }
+
+  public void setCurrentTrip(String currentTrip) {
+    this.currentTrip = currentTrip;
+  }
+
+  public static void setNewLatitude(double newLatitude) {
+    Scooter.newLatitude = newLatitude;
+  }
+
+  public static void setNewLongitude(double newLongitude) {
+    Scooter.newLongitude = newLongitude;
+  }
+
+  @Override
+  public String toString() {
+    return "Scooter{" +
+      "id=" + id +
+      ", tag='" + tag + '\'' +
+      ", status=" + status +
+      ", gpsLocation='" + gpsLocation + '\'' +
+      ", batteryCharge=" + batteryCharge +
+      ", mileage=" + mileage +
+      ", trips=" + Arrays.toString(trips) +
+      ", currentTrip='" + currentTrip + '\'' +
+      '}';
+  }
+
 }
