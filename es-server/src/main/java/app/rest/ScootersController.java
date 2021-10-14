@@ -2,6 +2,7 @@ package app.rest;
 
 import app.models.Scooter;
 import app.repositories.ScootersRepository;
+import app.rest.exception.PreConditionFailedException;
 import app.rest.exception.ScooterNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,13 +39,14 @@ public class ScootersController {
   @ResponseBody
   public Scooter getScooterById(@PathVariable Long id) {
     Scooter scooter = scootersRepo.findById(id);
+
     if(scooter == null)
       throw new ScooterNotFoundException("id-" + id);
 
       return scooter;
   }
 
-  //Save a scooter in the scooters list
+  //Save a new scooter in the scooters list
   @PostMapping("/scooters")
   public ResponseEntity<Scooter> saveScooter(@RequestBody Scooter scooter) {
 
@@ -55,16 +57,36 @@ public class ScootersController {
       .path("/{id}")
       .buildAndExpand(savedScooter.getId()).toUri();
 
-    return ResponseEntity.created(location).build();
-
-//    Scooter previous = scootersRepo.findById(scooter.getId());
-//    return null;
-//
-//    if(previous == null) {
-//      throw new UserNotFoundException("id="+user.getId());
-//    }
-//
+    return ResponseEntity.created(location).body(savedScooter);
   }
 
+  //Update a scooter in the scooters list
+  @PutMapping("/scooters/{id}")
+  public ResponseEntity<Scooter> updateScooter(@RequestBody Scooter scooter, @PathVariable Long id) {
+
+    Scooter previousScooter = scootersRepo.findById(scooter.getId());
+
+    if(scooter.getId() != id)
+      throw new PreConditionFailedException("Scooter-Id=" + scooter.getId() + " does not match path parameter=" + id);
+
+    if(previousScooter == null)
+      throw new ScooterNotFoundException("id=" + scooter.getId());
+
+    scootersRepo.save(scooter);
+
+    return ResponseEntity.ok().build();
+  }
+
+  //Delete a scooter by id from the scooters list
+  @DeleteMapping("/scooters/{id}")
+  @ResponseBody
+  public ResponseEntity<Scooter> deleteScooterById(@PathVariable Long id) {
+    Scooter scooter = scootersRepo.deleteById(id);
+
+    if (scooter == null)
+      throw new ScooterNotFoundException("id-" + id);
+
+    return ResponseEntity.ok(scooter);
+  }
 }
 
