@@ -43,7 +43,7 @@ public class ScootersRepositoryMock implements ScootersRepository{
 
     int indexNumber = scooters.indexOf(scooter);
 
-    if(indexNumber == -1) { //if scooter doesn't exists in scooters list add it, else update the scooter
+    if(indexNumber == -1) { //if scooter doesn't exist in scooters list add it, else update the scooter
       scooters.add(scooter);
     } else {
       scooters.set(indexNumber,scooter);

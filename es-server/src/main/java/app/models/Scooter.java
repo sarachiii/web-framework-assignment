@@ -1,5 +1,7 @@
 package app.models;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import java.util.Arrays;
 import java.util.Random;
 
@@ -11,11 +13,19 @@ enum ScooterStatus {
 
 public class Scooter {
 
+  @JsonView(Scooter.Normal.class)
   public long id;
+
+  @JsonView(Scooter.Normal.class)
   public String tag;
+
+  @JsonView(Scooter.Normal.class)
   public ScooterStatus status;
-  public String gpsLocation;
+
+  @JsonView(Scooter.Normal.class)
   public int batteryCharge;
+
+  public String gpsLocation;
   public double mileage;
   public int[] trips;
   public String currentTrip;
@@ -172,5 +182,7 @@ public class Scooter {
       ", currentTrip='" + currentTrip + '\'' +
       '}';
   }
+
+  public static class Normal{};
 
 }

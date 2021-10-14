@@ -4,6 +4,7 @@ import app.models.Scooter;
 import app.repositories.ScootersRepository;
 import app.rest.exception.PreConditionFailedException;
 import app.rest.exception.ScooterNotFoundException;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -87,6 +88,14 @@ public class ScootersController {
       throw new ScooterNotFoundException("id-" + id);
 
     return ResponseEntity.ok(scooter);
+  }
+
+  //GET summary of every scooter with id, tag, status and battery charge
+  @JsonView(Scooter.Normal.class)
+  @RequestMapping("/scooters/summary")
+  @ResponseBody
+  public List<Scooter> getScooterSummary() {
+      return scootersRepo.findAll();
   }
 }
 
