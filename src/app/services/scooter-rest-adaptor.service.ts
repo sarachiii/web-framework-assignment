@@ -4,7 +4,6 @@ import {Scooter} from "../models/scooter";
 import {environment} from "../../environments/environment";
 import {Observable} from 'rxjs';
 import {shareReplay} from "rxjs/operators";
-import {ScootersService} from "./scooters.service";
 
 @Injectable({
   providedIn: 'root'
@@ -20,22 +19,23 @@ export class ScooterRestAdaptorService {
 
   async asyncFindAll(): Promise<Scooter[]> {
     let response0: Observable<Scooter[]> = this.http.get<Scooter[]>(this.resourceUrl).pipe(shareReplay(1));
-    console.log(response0)
+    console.log(response0.toPromise())
     response0.subscribe((scooters: Scooter[]) => {
     }, error => console.log(error));
 
-    // const scooters = response0.forEach((scooter) => Scooter.copyConstructor(scooter.toPromise()));
     let scooters = [];
-    for (let i = 0; i < 4; i++) {
-     // let scooters[i] = response0.subscribe(scooter => Scooter.copyConstructor(scooter.toPromise()));
 
-    }
-
-    return null;
+    response0.subscribe(data => {
+      console.log(data)
+      data.forEach((stream: any) => console.log(stream))
+    })
+// Scooter.copyConstructor(await response0.toPromise()
+    console.log(scooters)
+    return scooters;
   }
 
   async asyncFindById(id: number): Promise<Scooter> {
-    let response0: Observable<Scooter> = this.http.get<Scooter>(this.resourceUrl + "/{" + id + "}");
+    let response0: Observable<Scooter> = this.http.get<Scooter>(`${this.resourceUrl}/${id}`);
     console.log(response0)
     response0.subscribe((scooter: Scooter) => {
     }, error => console.log(error));
