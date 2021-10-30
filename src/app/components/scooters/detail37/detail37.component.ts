@@ -31,7 +31,7 @@ export class Detail37Component implements OnInit {
   }
 
   ngOnInit(): void {
-    this.childParamsSubscription =
+    // this.childParamsSubscription =
       this.activatedRoute.params
         .subscribe(async (params: Params) => {
           this.selectedScooterFromOverview = await this.scooterRestAdaptorService.asyncFindById(parseInt(params['id']));
