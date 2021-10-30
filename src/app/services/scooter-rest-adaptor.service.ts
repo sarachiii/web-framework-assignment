@@ -18,29 +18,30 @@ export class ScooterRestAdaptorService {
   }
 
   async asyncFindAll(): Promise<Scooter[]> {
-    let response0: Observable<Scooter[]> = this.http.get<Scooter[]>(this.resourceUrl).pipe(shareReplay(1));
-    console.log(response0.toPromise())
+    let response0: Observable<Scooter[]> = this.http.get<Scooter[]>(this.resourceUrl);
+
+    console.log(response0)
     response0.subscribe((scooters: Scooter[]) => {
     }, error => console.log(error));
 
     let scooters = [];
-
-    response0.subscribe(data => {
+    response0.subscribe(async data => {
       console.log(data)
-      data.forEach((stream: any) => console.log(stream))
+        for (let i = 0; i < data.length; i++) {
+          scooters[i] = Scooter.copyConstructor(data[i]); //TODO 1 item uit array pakken ipv alles
+          console.log(data[i])
+        }
     })
-// Scooter.copyConstructor(await response0.toPromise()
-    console.log(scooters)
     return scooters;
   }
 
   async asyncFindById(id: number): Promise<Scooter> {
     let response0: Observable<Scooter> = this.http.get<Scooter>(`${this.resourceUrl}/${id}`);
-    console.log(response0)
+    // console.log(response0)
     response0.subscribe((scooter: Scooter) => {
     }, error => console.log(error));
-
     return Scooter.copyConstructor(await response0.toPromise());
+    //iets van een stop criteria toevoegen? --> pagina blijft laden...
   }
 
   async asyncSave(scooter): Promise<Scooter> {
@@ -68,6 +69,13 @@ export class ScooterRestAdaptorService {
   }
 
   async asyncDeleteById(id) {
+    let response0: Observable<Scooter> = this.http.delete<Scooter>(`${this.resourceUrl}/${id}`);
+    console.log(response0);
+    response0.subscribe((scooter: Scooter) => {
+    }, error => console.log(error));
+    // return Scooter.copyConstructor(await response0.toPromise());
+
+    return null;
   }
 
 }
