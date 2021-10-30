@@ -17,6 +17,8 @@ import {Overview34Component} from './components/scooters/overview34/overview34.c
 import {Detail34Component} from './components/scooters/detail34/detail34.component';
 import {Detail37Component} from "./components/scooters/detail37/detail37.component";
 import {Overview37Component} from "./components/scooters/overview37/overview37.component";
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import {Overview37Component} from "./components/scooters/overview37/overview37.c
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
