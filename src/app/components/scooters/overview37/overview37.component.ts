@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Scooter} from "../../../models/scooter";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {ScooterRestAdaptorService} from "../../../services/scooter-rest-adaptor.service";
-import {ScootersService} from "../../../services/scooters.service";
 
 @Component({
   selector: 'app-overview37',
@@ -14,7 +13,8 @@ export class Overview37Component implements OnInit {
   selectedScooter: Scooter = <Scooter>{};
   scooters: Scooter[];
 
-  constructor(private scootersService: ScootersService,private scooterRestAdaptorService: ScooterRestAdaptorService, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private scooterRestAdaptorService: ScooterRestAdaptorService,
+              private router: Router, private activatedRoute: ActivatedRoute) {
   }
 
   async ngOnInit() {

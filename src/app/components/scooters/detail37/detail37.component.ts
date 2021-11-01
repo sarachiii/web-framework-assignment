@@ -11,6 +11,7 @@ import {ScooterRestAdaptorService} from "../../../services/scooter-rest-adaptor.
 })
 export class Detail37Component implements OnInit {
 
+  editedScooter: Scooter;
   scooter: Scooter;
   private childParamsSubscription: Subscription;
 
@@ -31,11 +32,12 @@ export class Detail37Component implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.childParamsSubscription =
-      this.activatedRoute.params
-        .subscribe(async (params: Params) => {
-          this.selectedScooterFromOverview = await this.scooterRestAdaptorService.asyncFindById(parseInt(params['id']));
-        })
+    this.activatedRoute
+      .params
+      .subscribe(async (params: Params) => {
+        this.selectedScooterFromOverview = await this.scooterRestAdaptorService.asyncFindById(parseInt(params['id']));
+        this.editedScooter = Scooter.copyConstructor(this.selectedScooterFromOverview);
+      });
   }
 
   ngOnDestroy(): void {
