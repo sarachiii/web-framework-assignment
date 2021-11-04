@@ -1,32 +1,55 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {Scooter} from "../models/scooter";
 import {environment} from "../../environments/environment";
-import {Observable} from 'rxjs';
-import {shareReplay} from "rxjs/operators";
+import {Observable, throwError} from 'rxjs';
+import {shareReplay, map, tap, catchError} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ScooterRestAdaptorService {
 
+  public scooters: Scooter[] = [];
   resourceUrl: string = "";
 
   constructor(private http: HttpClient) {
     this.resourceUrl = environment.BACKEND_URL + "/scooters"
-    console.log("Created Scooter-REST-service-with-http for " + this.resourceUrl);
+    this.populateScooters();
+    console.log(this.scooters) //this.scooters array is empty
   }
 
-  async asyncFindAll(): Promise<Scooter[]> {
+  restGetScooters(): Observable<Scooter[]> {
+    return this.http.get<Scooter[]>(this.resourceUrl).pipe(catchError(this.handleError));
+  }
 
-    let response0 = await this.http.get<Scooter[]>(this.resourceUrl).toPromise();
-    let scooters = [];
-    for (let i = 0; i < response0.length; i++) {
-      scooters.push(Scooter.copyConstructor(response0[i]));
+  populateScooters(): void{
+    this.restGetScooters().subscribe((scooters: Scooter[]) => {
+      this.scooters = scooters.map(scooter => Scooter.copyConstructor(scooter)) as Scooter[];
+      console.log(this.scooters) //this.scooters array is filled
+    });
+    console.log(this.scooters) //this.scooters array is empty
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      console.error('An error occurred:', error.error);
+    } else {
+      console.error(`Backend returned code ${error.status}, body was: `, error.error);
     }
-
-    return scooters;
+    return throwError('Something bad happened; please try again later.');
   }
+
+  // async asyncFindAll(): Promise<Scooter[]> {
+  //
+  //   let response0 = await this.http.get<Scooter[]>(this.resourceUrl).toPromise();
+  //   let scooters = [];
+  //   for (let i = 0; i < response0.length; i++) {
+  //     scooters.push(Scooter.copyConstructor(response0[i]));
+  //   }
+  //
+  //   return scooters;
+  // }
 
   async asyncFindById(id: number): Promise<Scooter> {
     let response0: Observable<Scooter> = this.http.get<Scooter>(`${this.resourceUrl}/${id}`).pipe(shareReplay(1));

@@ -56,7 +56,6 @@ export class Scooter {
   }
 
   static copyConstructor(scooter:Scooter): Scooter {
-    if(scooter == null) return null;
-    return Object.assign(new Scooter(0), scooter);
+    return scooter == null ? null : Object.assign(new Scooter(0), scooter);
   }
 }

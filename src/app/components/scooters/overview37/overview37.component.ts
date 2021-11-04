@@ -17,9 +17,9 @@ export class Overview37Component implements OnInit {
               private router: Router, private activatedRoute: ActivatedRoute) {
   }
 
-  async ngOnInit() {
-   this.scooters = await this.scooterRestAdaptorService.asyncFindAll();
-
+  ngOnInit() {
+    this.scooters = this.scooterRestAdaptorService.scooters;
+  }
     // this.selectedScooter.id = this.activatedRoute.snapshot.params['id'];
     // this.activatedRoute.params
     //   .subscribe(
@@ -34,7 +34,6 @@ export class Overview37Component implements OnInit {
     //     this.selectedScooter =
     //       this.scooters.find(c => c.id == params.id)
     //   });
-  }
 
   onAddScooter() {
     let newScooter = Scooter.createSampleScooter();
