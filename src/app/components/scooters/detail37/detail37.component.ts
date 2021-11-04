@@ -11,7 +11,6 @@ import {ScooterRestAdaptorService} from "../../../services/scooter-rest-adaptor.
 })
 export class Detail37Component implements OnInit {
 
-  editedScooter: Scooter;
   scooter: Scooter;
   private childParamsSubscription: Subscription;
 
@@ -36,7 +35,6 @@ export class Detail37Component implements OnInit {
       .params
       .subscribe(async (params: Params) => {
         this.selectedScooterFromOverview = await this.scooterRestAdaptorService.asyncFindById(parseInt(params['id']));
-        this.editedScooter = Scooter.copyConstructor(this.selectedScooterFromOverview);
       });
   }
 
@@ -44,12 +42,12 @@ export class Detail37Component implements OnInit {
     this.childParamsSubscription && this.childParamsSubscription.unsubscribe();
   }
 
-  async onChanges() {
-    return this.scooter.equalsTo(await this.scooterRestAdaptorService.asyncFindById(this.scooter.id));
+  onChanges() {
+    return this.scooter.equalsTo(this.selectedScooterFromOverview);
   }
 
-  async onConfirm() {
-    if (await this.onChanges()) {
+  onConfirm() {
+    if (this.onChanges()) {
       return confirm("Are you sure you want to discard unsaved changes?");
     } else {
       return true;

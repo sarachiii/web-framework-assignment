@@ -18,30 +18,26 @@ export class ScooterRestAdaptorService {
   }
 
   async asyncFindAll(): Promise<Scooter[]> {
-    let response0: Observable<Scooter[]> = this.http.get<Scooter[]>(this.resourceUrl);
 
-    console.log(response0)
-    response0.subscribe((scooters: Scooter[]) => {
-    }, error => console.log(error));
-
+    let response0 = await this.http.get<Scooter[]>(this.resourceUrl).toPromise();
     let scooters = [];
-    response0.subscribe(async data => {
-      console.log(data)
-        for (let i = 0; i < data.length; i++) {
-          scooters[i] = Scooter.copyConstructor(data[i]); //TODO 1 item uit array pakken ipv alles
-          console.log(data[i])
-        }
-    })
+    for (let i = 0; i < response0.length; i++) {
+      scooters.push(Scooter.copyConstructor(response0[i]));
+    }
+
     return scooters;
   }
 
   async asyncFindById(id: number): Promise<Scooter> {
-    let response0: Observable<Scooter> = this.http.get<Scooter>(`${this.resourceUrl}/${id}`);
-    // console.log(response0)
+    let response0: Observable<Scooter> = this.http.get<Scooter>(`${this.resourceUrl}/${id}`).pipe(shareReplay(1));
+
     response0.subscribe((scooter: Scooter) => {
     }, error => console.log(error));
-    return Scooter.copyConstructor(await response0.toPromise());
-    //iets van een stop criteria toevoegen? --> pagina blijft laden...
+
+    const foundScooter = Scooter.copyConstructor(await response0.toPromise());
+    console.log('Scooter-RestAdaptorWithHttp.asyncFindById result: ', foundScooter);
+
+    return foundScooter;
   }
 
   async asyncSave(scooter): Promise<Scooter> {
@@ -70,12 +66,10 @@ export class ScooterRestAdaptorService {
 
   async asyncDeleteById(id) {
     let response0: Observable<Scooter> = this.http.delete<Scooter>(`${this.resourceUrl}/${id}`);
-    console.log(response0);
+
     response0.subscribe((scooter: Scooter) => {
     }, error => console.log(error));
-    // return Scooter.copyConstructor(await response0.toPromise());
-
-    return null;
+    return Scooter.copyConstructor(await response0.toPromise());
   }
 
 }

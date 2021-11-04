@@ -36,7 +36,6 @@ export class Overview37Component implements OnInit {
     //   });
   }
 
-  //Overview34 wordt gebruikt ipv deze....
   onAddScooter() {
     let newScooter = Scooter.createSampleScooter();
     this.scooterRestAdaptorService.asyncSave(newScooter);
