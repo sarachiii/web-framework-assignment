@@ -23,12 +23,15 @@ export class ScooterRestAdaptorService {
     return this.http.get<Scooter[]>(this.resourceUrl).pipe(catchError(this.handleError));
   }
 
-  populateScooters(): void{
+  populateScooters(): void {
     this.restGetScooters().subscribe((scooters: Scooter[]) => {
-      this.scooters = scooters.map(scooter => Scooter.copyConstructor(scooter)) as Scooter[];
-      console.log(this.scooters) //this.scooters array is filled
+     let scootersArray = scooters.map(scooter => Scooter.copyConstructor(scooter));
+     for (let i = 0; i < scooters.length; i++) {
+        this.scooters.push(scootersArray[i]); //adds one scooter at a time to the scooters list
+      }
+      console.log(this.scooters)
     });
-    console.log(this.scooters) //this.scooters array is empty
+    console.log(this.scooters)
   }
 
   private handleError(error: HttpErrorResponse) {
