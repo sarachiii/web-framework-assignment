@@ -30,7 +30,8 @@ export class Scooter {
 
   public equalsTo(scooter: Scooter) {
     return this.tag !== scooter.tag || this.status !== scooter.status || this.gpsLocation !== scooter.gpsLocation ||
-      this.mileage !== scooter.mileage || this.batteryCharge !== scooter.batteryCharge;  }
+      this.mileage !== scooter.mileage || this.batteryCharge !== scooter.batteryCharge;
+  }
 
   static createLatitude() {
     let randomNumber = Math.random() * (1 - (-1)) + (-1);

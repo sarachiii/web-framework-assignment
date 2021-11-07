@@ -19,6 +19,12 @@ export class Overview37Component implements OnInit {
 
   ngOnInit() {
     this.scooters = this.scooterRestAdaptorService.scooters;
+
+    this.activatedRoute
+      .firstChild?.params
+      .subscribe((params: Params) => {
+        this.selectedScooter = this.scooterRestAdaptorService.findById(params.id);
+      });
   }
 
   onAddScooter() {

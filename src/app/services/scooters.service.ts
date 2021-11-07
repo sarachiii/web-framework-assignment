@@ -19,7 +19,7 @@ export class ScootersService {
   }
 
   public findById(id: number): Scooter | null {
-    return this.scooters.find(scooter => scooter.id === id) || null;
+    return this.scooters.find(scooter => scooter.id == id) || null;
   }
 
   public save(scooter: Scooter): Scooter{

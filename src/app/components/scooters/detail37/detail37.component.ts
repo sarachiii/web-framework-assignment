@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Scooter} from "../../../models/scooter";
 import {Subscription} from "rxjs";
 import {ActivatedRoute, Params, Router} from "@angular/router";
@@ -12,41 +12,37 @@ import {ScooterRestAdaptorService} from "../../../services/scooter-rest-adaptor.
 export class Detail37Component implements OnInit {
 
   scooter: Scooter;
+  private _editedScooterId: number;
   private childParamsSubscription: Subscription;
 
-  @Input()
-  set selectedScooterFromOverview(scooter: Scooter) {
-    this.scooter = Scooter.copyConstructor(scooter);
+  set editedScooterId(id: number) {
+    this._editedScooterId = id;
+    this.scooter = Scooter.copyConstructor(this.scooterRestAdaptorService.findById(id));
   }
 
-  get selectedScooterFromOverview(): Scooter {
-    return this._selectedScooterFromOverview;
-  }
-
-  private _selectedScooterFromOverview: Scooter;
-
-  constructor(private scooterRestAdaptorService: ScooterRestAdaptorService, private router: Router, private activatedRoute: ActivatedRoute) {
-    this.scooter = Scooter.copyConstructor(this._selectedScooterFromOverview);
+  constructor(private scooterRestAdaptorService: ScooterRestAdaptorService, private router: Router,
+              private activatedRoute: ActivatedRoute) {
+    this.scooter = <Scooter>{};
   }
 
   ngOnInit(): void {
-    this.activatedRoute
-      .params
-      .subscribe(async (params: Params) => {
-        this.selectedScooterFromOverview = await this.scooterRestAdaptorService.findById(parseInt(params['id']));
-      });
+    this.childParamsSubscription =
+      this.activatedRoute.params
+        .subscribe((params: Params) => {
+          this.editedScooterId = params['id'];
+        })
   }
 
   ngOnDestroy(): void {
     this.childParamsSubscription && this.childParamsSubscription.unsubscribe();
   }
 
-  onChanges() {
-    return this.scooter.equalsTo(this.selectedScooterFromOverview);
+  onEdit() {
+    return this.scooter.equalsTo(this.scooterRestAdaptorService.findById(this.scooter.id));
   }
 
   onConfirm() {
-    if (this.onChanges()) {
+    if (this.onEdit()) {
       return confirm("Are you sure you want to discard unsaved changes?");
     } else {
       return true;
@@ -77,16 +73,16 @@ export class Detail37Component implements OnInit {
     }
   }
 
-  async onCancel() {
+  onCancel() {
     if (this.scooter && this.onConfirm()) {
-      this.scooter = await this.scooterRestAdaptorService.findById(this.scooter.id);
+      this.scooter = this.scooterRestAdaptorService.findById(this.scooter.id);
       this.routeTo();
     }
   }
 
-  async onReset() {
+  onReset() {
     if (this.scooter && this.onConfirm()) {
-      this.scooter = await this.scooterRestAdaptorService.findById(this.scooter.id);
+      this.scooter = this.scooterRestAdaptorService.findById(this.scooter.id);
     }
   }
 

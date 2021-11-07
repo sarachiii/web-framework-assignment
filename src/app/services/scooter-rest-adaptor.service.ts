@@ -50,21 +50,23 @@ export class ScooterRestAdaptorService {
   }
 
   restDeleteScooter(scooterId): void {
-    this.http.delete<Scooter>(`${this.resourceUrl}/${scooterId}`);
+    this.http.delete<Scooter>(`${this.resourceUrl}/${scooterId}`).subscribe();
   }
 
-  public findAll(): Scooter[]{
+  public findAll(): Scooter[] {
     return this.scooters;
   }
 
   public findById(id: number): Scooter | null {
-    return this.scooters.find(scooter => scooter.id === id) || null;
+    return this.scooters.find(scooter => scooter.id == id) || null;
   }
 
   public save(scooter: Scooter): Scooter {
     if (scooter.id === 0) {
       scooter.id = this.nextId();
-      this.restPostScooter(scooter);
+      this.restPostScooter(scooter).toPromise().then(scooter => {
+        this.scooters.push(scooter);
+      });
     } else {
       for (let i = 0; i < this.scooters.length; i++) {
         if (this.scooters[i].id == scooter.id) {
@@ -78,9 +80,10 @@ export class ScooterRestAdaptorService {
 
   public deleteById(id: number) {
     this.restDeleteScooter(id);
+    this.scooters.splice(this.scooters.findIndex(scooter => scooter.id == id), 1);
   }
 
   private nextId(): number {
-    return this.lastId += 3;
+    return this.lastId++;
   }
 }

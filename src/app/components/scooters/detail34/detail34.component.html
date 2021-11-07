@@ -31,10 +31,10 @@
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <button class="btn btn-danger float-end" [disabled]="onChanges()" (click)="onDelete()">Delete</button>
-          <button class="btn btn-primary float-end" [disabled]="!onChanges()" (click)="onSave()">Save</button>
+          <button class="btn btn-danger float-end" [disabled]="onEdit()" (click)="onDelete()">Delete</button>
+          <button class="btn btn-primary float-end" [disabled]="!onEdit()" (click)="onSave()">Save</button>
           <button class="btn btn-outline-primary float-end" (click)="onClear()">Clear</button>
-          <button class="btn btn-outline-primary float-end" [disabled]="!onChanges()" (click)="onReset()">Reset</button>
+          <button class="btn btn-outline-primary float-end" [disabled]="!onEdit()" (click)="onReset()">Reset</button>
           <button class="btn btn-primary float-end" (click)="onCancel()">Cancel</button>
         </div>
       </div>

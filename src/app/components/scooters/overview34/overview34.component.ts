@@ -16,19 +16,10 @@ export class Overview34Component implements OnInit {
   }
 
   ngOnInit() {
-    this.selectedScooter.id = this.activatedRoute.snapshot.params['id'];
-    this.activatedRoute.params
-      .subscribe(
-        (params: Params) => {
-          this.selectedScooter.id = params['id'];
-        }
-      );
-
     this.activatedRoute
       .firstChild?.params
       .subscribe((params: Params) => {
-        this.selectedScooter =
-          this.scooters.find(c => c.id == params.id)
+        this.selectedScooter = this.scootersService.findById(params.id);
       });
   }
 
