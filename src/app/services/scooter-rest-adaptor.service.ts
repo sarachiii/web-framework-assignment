@@ -3,20 +3,19 @@ import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {Scooter} from "../models/scooter";
 import {environment} from "../../environments/environment";
 import {Observable, throwError} from 'rxjs';
-import {shareReplay, map, tap, catchError} from "rxjs/operators";
+import {catchError} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ScooterRestAdaptorService {
-
+  private lastId: number = 30000;
   public scooters: Scooter[] = [];
   resourceUrl: string = "";
 
   constructor(private http: HttpClient) {
     this.resourceUrl = environment.BACKEND_URL + "/scooters"
     this.populateScooters();
-    console.log(this.scooters) //this.scooters array is empty
   }
 
   restGetScooters(): Observable<Scooter[]> {
@@ -25,13 +24,11 @@ export class ScooterRestAdaptorService {
 
   populateScooters(): void {
     this.restGetScooters().subscribe((scooters: Scooter[]) => {
-     let scootersArray = scooters.map(scooter => Scooter.copyConstructor(scooter));
-     for (let i = 0; i < scooters.length; i++) {
+      let scootersArray = scooters.map(scooter => Scooter.copyConstructor(scooter));
+      for (let i = 0; i < scooters.length; i++) {
         this.scooters.push(scootersArray[i]); //adds one scooter at a time to the scooters list
       }
-      console.log(this.scooters)
     });
-    console.log(this.scooters)
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -43,59 +40,47 @@ export class ScooterRestAdaptorService {
     return throwError('Something bad happened; please try again later.');
   }
 
-  // async asyncFindAll(): Promise<Scooter[]> {
-  //
-  //   let response0 = await this.http.get<Scooter[]>(this.resourceUrl).toPromise();
-  //   let scooters = [];
-  //   for (let i = 0; i < response0.length; i++) {
-  //     scooters.push(Scooter.copyConstructor(response0[i]));
-  //   }
-  //
-  //   return scooters;
-  // }
-
-  async asyncFindById(id: number): Promise<Scooter> {
-    let response0: Observable<Scooter> = this.http.get<Scooter>(`${this.resourceUrl}/${id}`).pipe(shareReplay(1));
-
-    response0.subscribe((scooter: Scooter) => {
-    }, error => console.log(error));
-
-    const foundScooter = Scooter.copyConstructor(await response0.toPromise());
-    console.log('Scooter-RestAdaptorWithHttp.asyncFindById result: ', foundScooter);
-
-    return foundScooter;
+  restPostScooter(scooter): Observable<Scooter> {
+    this.scooters.push(scooter);
+    return this.http.post<Scooter>(this.resourceUrl, scooter);
   }
 
-  async asyncSave(scooter): Promise<Scooter> {
-    let response0: Observable<Scooter>;
-    // distinguish new scooters from updates of existing Scooters
-    if (scooter.id == 0) {
-      response0 =
-        this.http.post<Scooter>(this.resourceUrl, scooter).pipe(shareReplay(1));
+  restPutScooter(scooter): Observable<Scooter> {
+    return this.http.put<Scooter>(`${this.resourceUrl}/${scooter.id}`, scooter);
+  }
+
+  restDeleteScooter(scooterId): void {
+    this.http.delete<Scooter>(`${this.resourceUrl}/${scooterId}`);
+  }
+
+  public findAll(): Scooter[]{
+    return this.scooters;
+  }
+
+  public findById(id: number): Scooter | null {
+    return this.scooters.find(scooter => scooter.id === id) || null;
+  }
+
+  public save(scooter: Scooter): Scooter {
+    if (scooter.id === 0) {
+      scooter.id = this.nextId();
+      this.restPostScooter(scooter);
     } else {
-      response0 =
-        this.http.put<Scooter>(`${this.resourceUrl}/${scooter.id}`, scooter).pipe(shareReplay(1));
+      for (let i = 0; i < this.scooters.length; i++) {
+        if (this.scooters[i].id == scooter.id) {
+          this.scooters[i] = scooter;
+          this.restPutScooter(scooter);
+        }
+      }
     }
-    // log the error, if any. observables can have multiple subscribers
-    // but the http request shall be shared for that
-    response0.subscribe((scooter: Scooter) => {
-    }, error => console.log(error));
-
-    // await resolution of the observable
-    // and convert the json object to a proper Scooter instance
-    const savedScooter = Scooter.copyConstructor(await response0.toPromise());
-    console.log('Scooter-RestAdaptorWithHttp.asyncSave result: ', savedScooter);
-
-    //will be delivered as a promise such that the caller can await this method
-    return savedScooter;
+    return scooter;
   }
 
-  async asyncDeleteById(id) {
-    let response0: Observable<Scooter> = this.http.delete<Scooter>(`${this.resourceUrl}/${id}`);
-
-    response0.subscribe((scooter: Scooter) => {
-    }, error => console.log(error));
-    return Scooter.copyConstructor(await response0.toPromise());
+  public deleteById(id: number) {
+    this.restDeleteScooter(id);
   }
 
+  private nextId(): number {
+    return this.lastId += 3;
+  }
 }

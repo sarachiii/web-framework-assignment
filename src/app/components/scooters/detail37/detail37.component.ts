@@ -23,7 +23,6 @@ export class Detail37Component implements OnInit {
     return this._selectedScooterFromOverview;
   }
 
-  @Output() selectedScooterFromOverviewChange = new EventEmitter<Scooter>();
   private _selectedScooterFromOverview: Scooter;
 
   constructor(private scooterRestAdaptorService: ScooterRestAdaptorService, private router: Router, private activatedRoute: ActivatedRoute) {
@@ -34,7 +33,7 @@ export class Detail37Component implements OnInit {
     this.activatedRoute
       .params
       .subscribe(async (params: Params) => {
-        this.selectedScooterFromOverview = await this.scooterRestAdaptorService.asyncFindById(parseInt(params['id']));
+        this.selectedScooterFromOverview = await this.scooterRestAdaptorService.findById(parseInt(params['id']));
       });
   }
 
@@ -54,15 +53,15 @@ export class Detail37Component implements OnInit {
     }
   }
 
-  async onDelete() {
+  onDelete() {
     if (this.scooter && this.onConfirm()) {
-      await this.scooterRestAdaptorService.asyncDeleteById(this.scooter.id);
+      this.scooterRestAdaptorService.deleteById(this.scooter.id);
       this.routeTo();
     }
   }
 
-  async onSave() {
-    await this.scooterRestAdaptorService.asyncSave(this.scooter);
+  onSave() {
+    this.scooterRestAdaptorService.save(this.scooter);
     this.routeTo();
   }
 
@@ -80,14 +79,14 @@ export class Detail37Component implements OnInit {
 
   async onCancel() {
     if (this.scooter && this.onConfirm()) {
-      this.scooter = await this.scooterRestAdaptorService.asyncFindById(this.scooter.id);
+      this.scooter = await this.scooterRestAdaptorService.findById(this.scooter.id);
       this.routeTo();
     }
   }
 
   async onReset() {
     if (this.scooter && this.onConfirm()) {
-      this.scooter = await this.scooterRestAdaptorService.asyncFindById(this.scooter.id);
+      this.scooter = await this.scooterRestAdaptorService.findById(this.scooter.id);
     }
   }
 

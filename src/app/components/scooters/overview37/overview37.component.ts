@@ -20,24 +20,10 @@ export class Overview37Component implements OnInit {
   ngOnInit() {
     this.scooters = this.scooterRestAdaptorService.scooters;
   }
-    // this.selectedScooter.id = this.activatedRoute.snapshot.params['id'];
-    // this.activatedRoute.params
-    //   .subscribe(
-    //     (params: Params) => {
-    //       this.selectedScooter.id = params['id'];
-    //     }
-    //   );
-
-    // this.activatedRoute
-    //   .firstChild?.params
-    //   .subscribe((params: Params) => {
-    //     this.selectedScooter =
-    //       this.scooters.find(c => c.id == params.id)
-    //   });
 
   onAddScooter() {
     let newScooter = Scooter.createSampleScooter();
-    this.scooterRestAdaptorService.asyncSave(newScooter);
+    this.scooterRestAdaptorService.restPostScooter(newScooter);
     this.onSelect(newScooter);
   }
 
