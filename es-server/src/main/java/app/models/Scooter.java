@@ -17,21 +17,16 @@ enum ScooterStatus {
 public class Scooter {
   @Id
   @GeneratedValue
-  @Column
   private long id;
-
-  //  @JsonView(Scooter.Normal.class)
-  //  @JsonView(Scooter.Normal.class)
   private String tag;
-  //  @JsonView(Scooter.Normal.class)
   @Enumerated(EnumType.STRING)
   private ScooterStatus status;
-  //  @JsonView(Scooter.Normal.class)
   private int batteryCharge;
   private String gpsLocation;
   private double mileage;
   private String trips; //int[]
   private String currentTrip;
+  //  @JsonView(Scooter.Normal.class)
 
   private static final double CENTRAL_LATITUDE = 52.379189;
   private static final double CENTRAL_LONGITUDE = 4.899431;
