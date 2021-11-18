@@ -1,6 +1,7 @@
 package app.repositories;
 
 import app.models.Scooter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +15,7 @@ import java.util.List;
 @Primary
 public class ScootersRepositoryJpa implements ScootersRepository {
 
+  @Autowired
   @PersistenceContext
   EntityManager entityManager;
 

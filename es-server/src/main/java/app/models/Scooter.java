@@ -39,10 +39,10 @@ public class Scooter {
   private static final double RADIUS = 0.035234;
   private static double newLatitude;
   private static double newLongitude;
+  private static int newId = 1;
 
-  protected Scooter() {
 
-  }
+  protected Scooter() {}
 
   public Scooter(long id, String tag, ScooterStatus status, String gpsLocation,
                  int batteryCharge, double mileage, String trips, String currentTrip) {
@@ -102,6 +102,25 @@ public class Scooter {
     double mileage = Math.floor(Math.random() * 10000);
 
     return new Scooter(id, tag, status, gpsLocation, batteryCharge, mileage, "[]", null);
+  }
+
+  public static Scooter createRandomScooter() {
+    final String ALPHABETANDNUMBER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+    StringBuilder sb = new StringBuilder();
+    int lengthTag = 8;
+    for (int i = 0; i < lengthTag; i++) {
+      int index = new Random().nextInt(ALPHABETANDNUMBER.length());
+      char randomChar = ALPHABETANDNUMBER.charAt(index);
+      sb.append(randomChar);
+    }
+    String tag = sb.toString();
+    ScooterStatus status = ScooterStatus.values()[new Random().nextInt(ScooterStatus.values().length)];
+
+    String gpsLocation = createLatitude() + " " + createLongitude();
+    int batteryCharge = (int) Math.floor(Math.random() * (100 - 5 + 1) + 5);
+    double mileage = Math.floor(Math.random() * 10000);
+
+    return new Scooter(newId++, tag, status, gpsLocation, batteryCharge, mileage, "[]", null);
   }
 
   public long getId() {
