@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -21,9 +22,8 @@ public class ScootersRepositoryJpa implements ScootersRepository {
 
   @Override
   public List<Scooter> findAll() {
-//    TypedQuery<Scooter> query = this.entityManager.createQuery("select s from Scooter s", Scooter.class);
-//    return query.getResultList();
-    return null;
+    TypedQuery<Scooter> query = this.entityManager.createQuery("select s from Scooter s", Scooter.class);
+    return query.getResultList();
   }
 
   @Override
@@ -31,6 +31,7 @@ public class ScootersRepositoryJpa implements ScootersRepository {
     return entityManager.find(Scooter.class, id);
   }
 
+  //Saves new scooter or updates scooter
   @Override
   public Scooter save(Scooter scooter) {
     return entityManager.merge(scooter);
