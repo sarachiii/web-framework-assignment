@@ -66,7 +66,7 @@ public class Scooter {
   }
 
   public Scooter(String tag) {
-    this(0, tag, null, null, 0, 0.0, "[]", null);
+    this(0, tag, null, null, 0, 0.0, null, null);
   }
 
   public static String createLatitude() {
@@ -99,7 +99,7 @@ public class Scooter {
     int batteryCharge = (int) Math.floor(Math.random() * (100 - 5 + 1) + 5);
     double mileage = Math.floor(Math.random() * 10000);
 
-    return new Scooter(id, tag, status, gpsLocation, batteryCharge, mileage, "[]", null);
+    return new Scooter(id, tag, status, gpsLocation, batteryCharge, mileage, null, null);
   }
 
   public static Scooter createRandomScooter() {
@@ -118,7 +118,7 @@ public class Scooter {
     int batteryCharge = (int) Math.floor(Math.random() * (100 - 5 + 1) + 5);
     double mileage = Math.floor(Math.random() * 10000);
 
-    return new Scooter(newId++, tag, status, gpsLocation, batteryCharge, mileage, "[]", null);
+    return new Scooter(newId++, tag, status, gpsLocation, batteryCharge, mileage, null, null);
   }
 
   public long getId() {
