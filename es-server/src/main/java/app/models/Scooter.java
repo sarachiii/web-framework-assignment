@@ -1,8 +1,6 @@
 package app.models;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import org.hibernate.annotations.Entity;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.EnumType;
 import javax.persistence.*;
@@ -17,11 +15,12 @@ enum ScooterStatus {
 
 @Entity
 public class Scooter {
-
   @Id
   @GeneratedValue
-//  @JsonView(Scooter.Normal.class)
+  @Column
   private long id;
+
+  //  @JsonView(Scooter.Normal.class)
   //  @JsonView(Scooter.Normal.class)
   private String tag;
   //  @JsonView(Scooter.Normal.class)
@@ -40,7 +39,6 @@ public class Scooter {
   private static double newLatitude;
   private static double newLongitude;
   private static int newId = 1;
-
 
   protected Scooter() {}
 
