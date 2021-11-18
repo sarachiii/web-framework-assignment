@@ -1,16 +1,17 @@
 package app.repositories;
 
 import app.models.Scooter;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
 @Transactional
+@Primary
 public class ScootersRepositoryJpa implements ScootersRepository {
 
   @PersistenceContext
