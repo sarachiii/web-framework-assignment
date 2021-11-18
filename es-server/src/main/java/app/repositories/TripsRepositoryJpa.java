@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -21,9 +22,8 @@ public class TripsRepositoryJpa {
   EntityManager entityManager;
 
   public List<Trip> findAll() {
-//    TypedQuery<Scooter> query = this.entityManager.createQuery("select s from Scooter s", Scooter.class);
-//    return query.getResultList();
-    return null;
+    TypedQuery<Trip> query = this.entityManager.createQuery("select t from Trip t", Trip.class);
+    return query.getResultList();
   }
 
   public Trip findById(long id) {
