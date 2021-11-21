@@ -1,14 +1,15 @@
 package app.models;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 public class Trip {
+
   @Id
   @GeneratedValue
   private long id;
@@ -20,36 +21,37 @@ public class Trip {
   private double mileage;
   private double costOfTheTrip;
 
+  @ManyToOne
+  @JsonIgnore
+  private Scooter scooter;
+
   /**
-   * Associates the given scooter with this trip, if not yet associated
-   * also checks upon the current trip
+   * Associates the given scooter with this trip, if not yet associated also checks upon the current trip
    * @param scooter provide null to dissociate the currently associated scooter
    * @return whether a new association has been added
    */
   public boolean associateScooter(Scooter scooter){
-    //TODO
     return false;
   }
 
-  /**
-   * Associates the given trip with this scooter, if not yet associated
-   * @param trip
-   * @return whether a new association has been added
-   */
-  public boolean associateTrip(Trip trip){
-    //TODO
-    return false;
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Trip trip = (Trip) o;
+    return id == trip.id;
   }
 
-  /**
-   * Dissociates the given trip from this scooter, if associated
-   * also checks upon the current trip
-   * @param trip
-   * @return whether an existing new association has been removed
-   */
-  public boolean dissociateTrip(Trip trip){
-    //TODO
-    return false;
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
   }
 
+  public Scooter getScooter() {
+    return scooter;
+  }
+
+  public void setScooter(Scooter scooter) {
+    this.scooter = scooter;
+  }
 }

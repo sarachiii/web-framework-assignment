@@ -14,7 +14,7 @@ import java.util.List;
 public class EsServerApplication implements CommandLineRunner {
 
   @Autowired
-  ScootersRepositoryJpa scootersRepo;
+  private ScootersRepositoryJpa scootersRepo;
 
   public static void main(String[] args) {
     SpringApplication.run(EsServerApplication.class, args);
@@ -28,7 +28,7 @@ public class EsServerApplication implements CommandLineRunner {
   }
 
   private void createInitialScooters() {
-    // check whether the repois empty
+    // check whether the repo is empty
     List<Scooter> scooters = this.scootersRepo.findAll();
     if (scooters != null && scooters.size() > 0) return;
     System.out.println("Configuring some initial scooter data");

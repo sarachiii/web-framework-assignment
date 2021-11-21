@@ -4,8 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.EnumType;
 import javax.persistence.*;
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
 
 enum ScooterStatus {
   IDLE,
@@ -24,7 +23,7 @@ public class Scooter {
   private int batteryCharge;
   private String gpsLocation;
   private double mileage;
-  private String trips; //int[]
+  private String trips;
   private String currentTrip;
   //  @JsonView(Scooter.Normal.class)
 
@@ -35,7 +34,11 @@ public class Scooter {
   private static double newLongitude;
   private static int newId = 1;
 
-  protected Scooter() {}
+  @OneToMany(mappedBy = "scooter")
+  private List<Trip> tripArrayList = new ArrayList<>();
+
+  public Scooter() {
+  }
 
   public Scooter(long id, String tag, ScooterStatus status, String gpsLocation,
                  int batteryCharge, double mileage, String trips, String currentTrip) {
@@ -62,6 +65,36 @@ public class Scooter {
 
   public Scooter(String tag) {
     this(0, tag, null, null, 0, 0.0, null, null);
+  }
+
+  /**
+   * Associates the given scooter with this trip, if not yet associated also checks upon the current trip
+   * @param scooter provide null to dissociate the currently associated scooter
+   * @return whether a new association has been added
+   */
+  public boolean associateScooter(Scooter scooter){
+    return false;
+  }
+
+  /**
+   * Associates the given trip with this scooter, if not yet associated
+   * @param trip
+   * @return whether a new association has been added
+   */
+  public boolean associateTrip(Trip trip){
+    //TODO
+    return false;
+  }
+
+  /**
+   * Dissociates the given trip from this scooter, if associated
+   * also checks upon the current trip
+   * @param trip
+   * @return whether an existing new association has been removed
+   */
+  public boolean dissociateTrip(Trip trip){
+    //TODO
+    return false;
   }
 
   public static String createLatitude() {
@@ -214,6 +247,18 @@ public class Scooter {
   public static class Normal {
   }
 
-  ;
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Scooter scooter = (Scooter) o;
+    return id == scooter.id;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
+  }
+
 
 }
