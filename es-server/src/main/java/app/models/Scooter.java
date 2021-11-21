@@ -68,22 +68,16 @@ public class Scooter {
   }
 
   /**
-   * Associates the given scooter with this trip, if not yet associated also checks upon the current trip
-   * @param scooter provide null to dissociate the currently associated scooter
-   * @return whether a new association has been added
-   */
-  public boolean associateScooter(Scooter scooter){
-    return false;
-  }
-
-  /**
    * Associates the given trip with this scooter, if not yet associated
    * @param trip
    * @return whether a new association has been added
    */
   public boolean associateTrip(Trip trip){
-    //TODO
-    return false;
+    if (!tripArrayList.contains(trip)) {
+      tripArrayList.add(trip);
+    }
+    
+    return tripArrayList.contains(trip);
   }
 
   /**
