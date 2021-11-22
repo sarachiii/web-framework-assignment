@@ -76,7 +76,6 @@ public class Scooter {
     if (!tripArrayList.contains(trip)) {
       tripArrayList.add(trip);
     }
-    
     return tripArrayList.contains(trip);
   }
 
@@ -87,8 +86,11 @@ public class Scooter {
    * @return whether an existing new association has been removed
    */
   public boolean dissociateTrip(Trip trip){
-    //TODO
-    return false;
+    if(tripArrayList.contains(trip)){
+      tripArrayList.remove(trip);
+      System.out.println(getCurrentTrip());
+    }
+    return tripArrayList.contains(trip);
   }
 
   public static String createLatitude() {
