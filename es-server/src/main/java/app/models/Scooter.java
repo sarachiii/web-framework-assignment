@@ -23,6 +23,7 @@ public class Scooter {
   private int batteryCharge;
   private String gpsLocation;
   private double mileage;
+  private String trips;
   private String currentTrip;
   //  @JsonView(Scooter.Normal.class)
 
@@ -34,36 +35,36 @@ public class Scooter {
   private static int newId = 1;
 
   @OneToMany(mappedBy = "scooter")
-  private List<Trip> trips;
+  private List<Trip> tripArrayList = new ArrayList<>();
 
   public Scooter() {
   }
 
   public Scooter(long id, String tag, ScooterStatus status, String gpsLocation,
-                 int batteryCharge, double mileage, String currentTrip) {
+                 int batteryCharge, double mileage, String trips, String currentTrip) {
     this.id = id;
     this.tag = tag;
     this.status = status;
     this.gpsLocation = gpsLocation;
     this.batteryCharge = batteryCharge;
     this.mileage = mileage;
+    this.trips = trips;
     this.currentTrip = currentTrip;
-    this.trips = new ArrayList<>();
   }
 
   public Scooter(String tag, ScooterStatus status, String gpsLocation,
-                 int batteryCharge, double mileage, String currentTrip) {
+                 int batteryCharge, double mileage, String trips, String currentTrip) {
     this.tag = tag;
     this.status = status;
     this.gpsLocation = gpsLocation;
     this.batteryCharge = batteryCharge;
     this.mileage = mileage;
+    this.trips = trips;
     this.currentTrip = currentTrip;
-    this.trips = new ArrayList<>();
   }
 
   public Scooter(String tag) {
-    this(0, tag, null, null, 0, 0.0, null);
+    this(0, tag, null, null, 0, 0.0, null, null);
   }
 
   /**
@@ -72,10 +73,10 @@ public class Scooter {
    * @return whether a new association has been added
    */
   public boolean associateTrip(Trip trip){
-    if (!trips.contains(trip)) {
-      trips.add(trip);
+    if (!tripArrayList.contains(trip)) {
+      tripArrayList.add(trip);
     }
-    return trips.contains(trip);
+    return tripArrayList.contains(trip);
   }
 
   /**
@@ -85,11 +86,11 @@ public class Scooter {
    * @return whether an existing new association has been removed
    */
   public boolean dissociateTrip(Trip trip){
-    if(trips.contains(trip)){
-      trips.remove(trip);
+    if(tripArrayList.contains(trip)){
+      tripArrayList.remove(trip);
       System.out.println(getCurrentTrip());
     }
-    return trips.contains(trip);
+    return tripArrayList.contains(trip);
   }
 
   public static String createLatitude() {
@@ -122,7 +123,7 @@ public class Scooter {
     int batteryCharge = (int) Math.floor(Math.random() * (100 - 5 + 1) + 5);
     double mileage = Math.floor(Math.random() * 10000);
 
-    return new Scooter(id, tag, status, gpsLocation, batteryCharge, mileage, null);
+    return new Scooter(id, tag, status, gpsLocation, batteryCharge, mileage, null, null);
   }
 
   public static Scooter createRandomScooter() {
@@ -141,7 +142,7 @@ public class Scooter {
     int batteryCharge = (int) Math.floor(Math.random() * (100 - 5 + 1) + 5);
     double mileage = Math.floor(Math.random() * 10000);
 
-    return new Scooter(newId++, tag, status, gpsLocation, batteryCharge, mileage, null);
+    return new Scooter(newId++, tag, status, gpsLocation, batteryCharge, mileage, null, null);
   }
 
   public long getId() {
@@ -170,6 +171,10 @@ public class Scooter {
 
   public double getMileage() {
     return mileage;
+  }
+
+  public String getTrips() {
+    return trips;
   }
 
   public String getCurrentTrip() {
@@ -204,6 +209,10 @@ public class Scooter {
     this.mileage = mileage;
   }
 
+  public void setTrips(String trips) {
+    this.trips = trips;
+  }
+
   public void setCurrentTrip(String currentTrip) {
     this.currentTrip = currentTrip;
   }
@@ -216,14 +225,6 @@ public class Scooter {
     Scooter.newLongitude = newLongitude;
   }
 
-  public List<Trip> getTrips() {
-    return trips;
-  }
-
-  public void setTrips(List<Trip> trips) {
-    this.trips = trips;
-  }
-
   @Override
   public String toString() {
     return "Scooter{" +
@@ -234,6 +235,7 @@ public class Scooter {
       ", batteryCharge=" + batteryCharge +
       ", mileage=" + mileage +
       ", trips=" + trips +
+//      ", trips=" + Arrays.toString(trips) +
       ", currentTrip='" + currentTrip + '\'' +
       '}';
   }
@@ -253,4 +255,6 @@ public class Scooter {
   public int hashCode() {
     return Objects.hash(id);
   }
+
+
 }
