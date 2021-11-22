@@ -34,12 +34,7 @@ public class ScootersRepositoryJpa implements ScootersRepository {
   //Saves new scooter or updates scooter
   @Override
   public Scooter save(Scooter scooter) {
-    if(scooter.getId() == 0){
-      entityManager.persist(scooter);
-    } else {
-      entityManager.merge(scooter);
-    }
-    return scooter;
+    return entityManager.merge(scooter);
   }
 
   @Override

@@ -26,8 +26,7 @@ public class Trip {
   private Scooter scooter;
 
   /**
-   * Associates the given scooter with this trip,
-   * if not yet associated also checks upon the current trip
+   * Associates the given scooter with this trip, if not yet associated also checks upon the current trip
    * @param scooter provide null to dissociate the currently associated scooter
    * @return whether a new association has been added
    */
@@ -55,9 +54,5 @@ public class Trip {
 
   public void setScooter(Scooter scooter) {
     this.scooter = scooter;
-  }
-
-  public long getId() {
-    return id;
   }
 }

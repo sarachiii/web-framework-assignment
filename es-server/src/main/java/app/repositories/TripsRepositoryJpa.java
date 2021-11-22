@@ -32,12 +32,7 @@ public class TripsRepositoryJpa {
 
   //Saves new trip or updates trip
   public Trip save(Trip trip) {
-    if(trip.getId() == 0){
-      entityManager.persist(trip);
-    } else {
-      entityManager.merge(trip);
-    }
-    return trip;
+    return entityManager.merge(trip);
   }
 
   public Trip deleteById(long id) {
