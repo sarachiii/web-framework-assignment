@@ -40,4 +40,7 @@ public class TripsRepositoryJpa {
     entityManager.remove(trip);
     return null;
   }
+
+
+
 }
