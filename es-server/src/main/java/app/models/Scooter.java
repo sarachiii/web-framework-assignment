@@ -23,10 +23,8 @@ public class Scooter {
   private int batteryCharge;
   private String gpsLocation;
   private double mileage;
-  @OneToMany(mappedBy = "scooter")
-  private List<Trip> trips;
-  @OneToMany(mappedBy = "scooter")
-  private List<Trip> currentTrip;
+  private String trips;
+  private String currentTrip;
   //  @JsonView(Scooter.Normal.class)
 
   private static final double CENTRAL_LATITUDE = 52.379189;
@@ -36,14 +34,14 @@ public class Scooter {
   private static double newLongitude;
   private static int newId = 1;
 
-//  @OneToMany(mappedBy = "scooter")
-//  private List<Trip> tripArrayList = new ArrayList<>();
+  @OneToMany(mappedBy = "scooter")
+  private List<Trip> tripArrayList = new ArrayList<>();
 
   public Scooter() {
   }
 
   public Scooter(long id, String tag, ScooterStatus status, String gpsLocation,
-                 int batteryCharge, double mileage, List<Trip> trips, List<Trip> currentTrip) {
+                 int batteryCharge, double mileage, String trips, String currentTrip) {
     this.id = id;
     this.tag = tag;
     this.status = status;
@@ -55,7 +53,7 @@ public class Scooter {
   }
 
   public Scooter(String tag, ScooterStatus status, String gpsLocation,
-                 int batteryCharge, double mileage, List<Trip> trips, List<Trip> currentTrip) {
+                 int batteryCharge, double mileage, String trips, String currentTrip) {
     this.tag = tag;
     this.status = status;
     this.gpsLocation = gpsLocation;
@@ -71,29 +69,26 @@ public class Scooter {
 
   /**
    * Associates the given trip with this scooter, if not yet associated
-   *
    * @param trip
    * @return whether a new association has been added
    */
-  public boolean associateTrip(Trip trip) {
-    if (trip.getScooter() == null && this.trips.isEmpty()) {
-      this.trips.add(trip);
+  public boolean associateTrip(Trip trip){
+    if (!tripArrayList.contains(trip)) {
+      tripArrayList.add(trip);
     }
-    return this.trips.contains(trip);
+    
+    return tripArrayList.contains(trip);
   }
 
   /**
    * Dissociates the given trip from this scooter, if associated
    * also checks upon the current trip
-   *
    * @param trip
    * @return whether an existing new association has been removed
    */
-  public boolean dissociateTrip(Trip trip) {
-    if (trip.getScooter() != null && !this.trips.isEmpty() && !this.currentTrip.contains(trip)) {
-      this.trips.remove(trip);
-    }
-    return !this.trips.contains(trip);
+  public boolean dissociateTrip(Trip trip){
+    //TODO
+    return false;
   }
 
   public static String createLatitude() {
@@ -176,11 +171,11 @@ public class Scooter {
     return mileage;
   }
 
-  public List<Trip> getTrips() {
+  public String getTrips() {
     return trips;
   }
 
-  public List<Trip> getCurrentTrip() {
+  public String getCurrentTrip() {
     return currentTrip;
   }
 
@@ -212,11 +207,11 @@ public class Scooter {
     this.mileage = mileage;
   }
 
-  public void setTrips(List<Trip> trips) {
+  public void setTrips(String trips) {
     this.trips = trips;
   }
 
-  public void setCurrentTrip(List<Trip> currentTrip) {
+  public void setCurrentTrip(String currentTrip) {
     this.currentTrip = currentTrip;
   }
 
