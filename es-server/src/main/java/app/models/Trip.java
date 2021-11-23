@@ -5,7 +5,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
+import java.util.Random;
 
 @Entity
 public class Trip {
@@ -20,10 +23,25 @@ public class Trip {
   private String endPosition;
   private double mileage;
   private double costOfTheTrip;
+  private static int newId = 1000;
 
   @ManyToOne
   @JsonIgnore
   private Scooter scooter;
+
+  public Trip() {
+  }
+
+  public Trip(long id, LocalDateTime startDate, LocalDateTime endDate, LocalDateTime time, String startPosition, String endPosition, double mileage, double costOfTheTrip) {
+    this.id = id;
+    this.startDate = startDate;
+    this.endDate = endDate;
+    this.time = time;
+    this.startPosition = startPosition;
+    this.endPosition = endPosition;
+    this.mileage = mileage;
+    this.costOfTheTrip = costOfTheTrip;
+  }
 
   /**
    * Associates the given scooter with this trip, if not yet associated also checks upon the current trip
@@ -53,5 +71,21 @@ public class Trip {
 
   public void setScooter(Scooter scooter) {
     this.scooter = scooter;
+  }
+
+  public static Trip createRandomTrip(){
+    LocalDateTime start = LocalDateTime.of(2020, Month.JANUARY, 1, 00, 00, 00);
+    long startDays = ChronoUnit.DAYS.between(start, LocalDateTime.now());
+    LocalDateTime randomStartDate = start.plusDays(new Random().nextInt((int) startDays + 1));
+
+    long endDays = ChronoUnit.DAYS.between(randomStartDate, LocalDateTime.now());
+    LocalDateTime randomEndDate = start.plusDays(new Random().nextInt((int) endDays + 1));
+
+    String startgps = "gps(" + Scooter.createLatitude() + "," + Scooter.createLongitude() + ")";
+    String endgps = "gps(" + Scooter.createLatitude() + "," + Scooter.createLongitude() + ")";
+    double mileage = Math.floor(Math.random() * 10000);
+    double cost = mileage / 10;
+    Trip trip = new Trip(newId++, randomStartDate, randomEndDate, null, startgps, endgps, mileage, cost);
+    return trip;
   }
 }
