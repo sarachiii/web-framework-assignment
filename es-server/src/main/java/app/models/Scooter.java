@@ -24,7 +24,7 @@ public class Scooter {
   private String gpsLocation;
   private double mileage;
   private String trips;
-  private String currentTrip;
+  private int currentTrip;
   //  @JsonView(Scooter.Normal.class)
 
   private static final double CENTRAL_LATITUDE = 52.379189;
@@ -37,11 +37,11 @@ public class Scooter {
   @OneToMany(mappedBy = "scooter")
   private List<Trip> tripArrayList = new ArrayList<>();
 
-  public Scooter() {
+  protected Scooter() {
   }
 
   public Scooter(long id, String tag, ScooterStatus status, String gpsLocation,
-                 int batteryCharge, double mileage, String trips, String currentTrip) {
+                 int batteryCharge, double mileage, String trips, int currentTrip) {
     this.id = id;
     this.tag = tag;
     this.status = status;
@@ -53,7 +53,7 @@ public class Scooter {
   }
 
   public Scooter(String tag, ScooterStatus status, String gpsLocation,
-                 int batteryCharge, double mileage, String trips, String currentTrip) {
+                 int batteryCharge, double mileage, String trips, int currentTrip) {
     this.tag = tag;
     this.status = status;
     this.gpsLocation = gpsLocation;
@@ -64,7 +64,7 @@ public class Scooter {
   }
 
   public Scooter(String tag) {
-    this(0, tag, null, null, 0, 0.0, null, null);
+    this(0, tag, null, null, 0, 0.0, null, 0);
   }
 
   /**
@@ -76,7 +76,7 @@ public class Scooter {
     if (!tripArrayList.contains(trip)) {
       tripArrayList.add(trip);
     }
-    
+
     return tripArrayList.contains(trip);
   }
 
@@ -121,7 +121,7 @@ public class Scooter {
     int batteryCharge = (int) Math.floor(Math.random() * (100 - 5 + 1) + 5);
     double mileage = Math.floor(Math.random() * 10000);
 
-    return new Scooter(id, tag, status, gpsLocation, batteryCharge, mileage, null, null);
+    return new Scooter(id, tag, status, gpsLocation, batteryCharge, mileage, null, 0);
   }
 
   public static Scooter createRandomScooter() {
@@ -140,7 +140,7 @@ public class Scooter {
     int batteryCharge = (int) Math.floor(Math.random() * (100 - 5 + 1) + 5);
     double mileage = Math.floor(Math.random() * 10000);
 
-    return new Scooter(newId++, tag, status, gpsLocation, batteryCharge, mileage, null, null);
+    return new Scooter(newId++, tag, status, gpsLocation, batteryCharge, mileage, null, 0);
   }
 
   public long getId() {
@@ -175,7 +175,7 @@ public class Scooter {
     return trips;
   }
 
-  public String getCurrentTrip() {
+  public int getCurrentTrip() {
     return currentTrip;
   }
 
@@ -211,7 +211,7 @@ public class Scooter {
     this.trips = trips;
   }
 
-  public void setCurrentTrip(String currentTrip) {
+  public void setCurrentTrip(int currentTrip) {
     this.currentTrip = currentTrip;
   }
 
