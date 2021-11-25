@@ -1,5 +1,6 @@
 package app.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.EnumType;
@@ -23,7 +24,9 @@ public class Scooter {
   private int batteryCharge;
   private String gpsLocation;
   private double mileage;
-  private String trips;
+  @OneToMany(mappedBy = "scooter")
+  @JsonBackReference
+  private List<Trip> trips;
   private int currentTrip;
   //  @JsonView(Scooter.Normal.class)
 
@@ -34,14 +37,14 @@ public class Scooter {
   private static double newLongitude;
   private static int newId = 1;
 
-  @OneToMany(mappedBy = "scooter")
-  private List<Trip> tripArrayList = new ArrayList<>();
+//  @OneToMany(mappedBy = "scooter")
+//  private List<Trip> tripArrayList = new ArrayList<>();
 
   protected Scooter() {
   }
 
   public Scooter(long id, String tag, ScooterStatus status, String gpsLocation,
-                 int batteryCharge, double mileage, String trips, int currentTrip) {
+                 int batteryCharge, double mileage, List<Trip> trips, int currentTrip) {
     this.id = id;
     this.tag = tag;
     this.status = status;
@@ -53,7 +56,7 @@ public class Scooter {
   }
 
   public Scooter(String tag, ScooterStatus status, String gpsLocation,
-                 int batteryCharge, double mileage, String trips, int currentTrip) {
+                 int batteryCharge, double mileage, List<Trip> trips, int currentTrip) {
     this.tag = tag;
     this.status = status;
     this.gpsLocation = gpsLocation;
@@ -73,11 +76,11 @@ public class Scooter {
    * @return whether a new association has been added
    */
   public boolean associateTrip(Trip trip){
-    if (!tripArrayList.contains(trip)) {
-      tripArrayList.add(trip);
+    if (!trips.contains(trip)) {
+      trips.add(trip);
+      return true;
     }
-
-    return tripArrayList.contains(trip);
+    return false;
   }
 
   /**
@@ -171,7 +174,7 @@ public class Scooter {
     return mileage;
   }
 
-  public String getTrips() {
+  public List<Trip> getTrips() {
     return trips;
   }
 
@@ -207,7 +210,7 @@ public class Scooter {
     this.mileage = mileage;
   }
 
-  public void setTrips(String trips) {
+  public void setTrips(List<Trip> trips) {
     this.trips = trips;
   }
 
