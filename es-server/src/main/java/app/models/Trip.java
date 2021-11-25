@@ -77,10 +77,17 @@ public class Trip {
   public static Trip createRandomTrip(){
     LocalDateTime start = LocalDateTime.of(2020, Month.JANUARY, 1, 00, 00, 00);
     long startDays = ChronoUnit.DAYS.between(start, LocalDateTime.now());
-    LocalDateTime randomStartDate = start.plusDays(new Random().nextInt((int) startDays + 1));
+    LocalDateTime randomStartDate = start.plusDays(new Random().nextInt((int) startDays + 1))
+      .plusHours(new Random().nextInt(24))
+      .plusMinutes(new Random().nextInt(60))
+      .plusSeconds(new Random().nextInt(60));
+
 
     long endDays = ChronoUnit.DAYS.between(randomStartDate, LocalDateTime.now());
-    LocalDateTime randomEndDate = start.plusDays(new Random().nextInt((int) endDays + 1));
+    LocalDateTime randomEndDate = start.plusDays(new Random().nextInt((int) endDays + 1))
+      .plusHours(new Random().nextInt(24))
+      .plusMinutes(new Random().nextInt(60))
+      .plusSeconds(new Random().nextInt(60));
 
     String startgps = "gps(" + Scooter.createLatitude() + "," + Scooter.createLongitude() + ")";
     String endgps = "gps(" + Scooter.createLatitude() + "," + Scooter.createLongitude() + ")";

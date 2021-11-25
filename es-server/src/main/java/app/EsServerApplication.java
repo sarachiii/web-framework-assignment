@@ -46,7 +46,9 @@ public class EsServerApplication implements CommandLineRunner {
       Trip trip3 = Trip.createRandomTrip();
 
       Scooter savedScooter = this.scootersRepo.save(scooter);
-      Trip savedTrip = this.tripRepo.save(trip1);
+      Trip savedTrip = this.tripRepo.save(trip1); //add the scooter id to the trip
+      //add the trip to the scooter
+      //save
     }
 //      scooters.get(0).associateTrip(trips.get(0));
 //      scooters.get(0).associateTrip(trips.get(1));
