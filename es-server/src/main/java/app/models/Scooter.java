@@ -90,7 +90,10 @@ public class Scooter {
    * @return whether an existing new association has been removed
    */
   public boolean dissociateTrip(Trip trip){
-    //TODO
+    if (trips.contains(trip)) {
+      trips.remove(trip);
+      return true;
+    }
     return false;
   }
 

@@ -49,7 +49,8 @@ public class Trip {
    * @return whether a new association has been added
    */
   public boolean associateScooter(Scooter scooter){
-    return false;
+    this.scooter = scooter;
+    return true;
   }
 
   @Override
