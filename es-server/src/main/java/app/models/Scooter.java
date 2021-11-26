@@ -7,14 +7,14 @@ import javax.persistence.EnumType;
 import javax.persistence.*;
 import java.util.*;
 
-enum ScooterStatus {
-  IDLE,
-  INUSE,
-  MAINTENANCE,
-}
-
 @Entity
 public class Scooter {
+  public enum ScooterStatus {
+    IDLE,
+    INUSE,
+    MAINTENANCE,
+  }
+
   @Id
   @GeneratedValue
   @JsonView(Scooter.Normal.class)
@@ -75,10 +75,11 @@ public class Scooter {
 
   /**
    * Associates the given trip with this scooter, if not yet associated
+   *
    * @param trip
    * @return whether a new association has been added
    */
-  public boolean associateTrip(Trip trip){
+  public boolean associateTrip(Trip trip) {
     if (!trips.contains(trip)) {
       trips.add(trip);
       return true;
@@ -89,10 +90,11 @@ public class Scooter {
   /**
    * Dissociates the given trip from this scooter, if associated
    * also checks upon the current trip
+   *
    * @param trip
    * @return whether an existing new association has been removed
    */
-  public boolean dissociateTrip(Trip trip){
+  public boolean dissociateTrip(Trip trip) {
     if (trips.contains(trip)) {
       trips.remove(trip);
       return true;

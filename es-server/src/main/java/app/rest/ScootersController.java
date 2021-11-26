@@ -46,10 +46,10 @@ public class ScootersController {
   public Scooter getScooterById(@PathVariable Long id) {
     Scooter scooter = scootersRepo.findById(id);
 
-    if(scooter == null)
+    if (scooter == null)
       throw new ScooterNotFoundException("id-" + id);
 
-      return scooter;
+    return scooter;
   }
 
   //Save a new scooter in the scooters list
@@ -72,10 +72,10 @@ public class ScootersController {
 
     Scooter previousScooter = scootersRepo.findById(scooter.getId());
 
-    if(scooter.getId() != id)
+    if (scooter.getId() != id)
       throw new PreConditionFailedException("Scooter-Id=" + scooter.getId() + " does not match path parameter=" + id);
 
-    if(previousScooter == null)
+    if (previousScooter == null)
       throw new ScooterNotFoundException("id=" + scooter.getId());
 
     scootersRepo.save(scooter);
@@ -100,21 +100,26 @@ public class ScootersController {
   @RequestMapping("/scooters/summary")
   @ResponseBody
   public List<Scooter> getScooterSummary() {
-      return getAllScooters();
+    return getAllScooters();
   }
 
   @PostMapping("/scooters/{id}/trips")
-  public ResponseEntity<Trip> saveTrip(@RequestBody Trip trip) {
+  public ResponseEntity<Trip> saveTrip(@RequestBody Trip trip, @PathVariable("id") long id) {
 
-    Trip savedTrip = tripsRepository.save(trip);
+    Trip savedTrip;
+    Scooter scooter = getScooterById(id);
 
     URI location = ServletUriComponentsBuilder
       .fromCurrentRequest()
       .path("/{id}")
-      .buildAndExpand(savedTrip.getId()).toUri();
+      .buildAndExpand(scooter.getId()).toUri();
 
-    return ResponseEntity.created(location).body(savedTrip);
+    if (scooter.getStatus() != Scooter.ScooterStatus.IDLE || scooter.getBatteryCharge() < 10) {
+      throw new PreConditionFailedException("Scooter-Id=" + scooter.getId() + " with status " + scooter.getStatus() + " cannot be claimed for another trip");
+    } else {
+      savedTrip = tripsRepository.save(trip);
+      return ResponseEntity.created(location).body(savedTrip);
+    }
   }
-
 }
 
