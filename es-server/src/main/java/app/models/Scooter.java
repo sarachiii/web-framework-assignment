@@ -17,19 +17,27 @@ enum ScooterStatus {
 public class Scooter {
   @Id
   @GeneratedValue
+  @JsonView(Scooter.Normal.class)
   private long id;
+
+  @JsonView(Scooter.Normal.class)
   private String tag;
+
   @Enumerated(EnumType.STRING)
+  @JsonView(Scooter.Normal.class)
   private ScooterStatus status;
+
+  @JsonView(Scooter.Normal.class)
   private int batteryCharge;
+
   private String gpsLocation;
   private double mileage;
+
   @OneToMany(mappedBy = "scooter")
   @JsonBackReference
-  private List<Trip> trips;
-  private int currentTrip;
-  //  @JsonView(Scooter.Normal.class)
+  private List<Trip> trips = new ArrayList<>();
 
+  private int currentTrip;
   private static final double CENTRAL_LATITUDE = 52.379189;
   private static final double CENTRAL_LONGITUDE = 4.899431;
   private static final double RADIUS = 0.035234;
@@ -37,37 +45,32 @@ public class Scooter {
   private static double newLongitude;
   private static int newId = 1;
 
-//  @OneToMany(mappedBy = "scooter")
-//  private List<Trip> tripArrayList = new ArrayList<>();
-
   protected Scooter() {
   }
 
   public Scooter(long id, String tag, ScooterStatus status, String gpsLocation,
-                 int batteryCharge, double mileage, List<Trip> trips, int currentTrip) {
+                 int batteryCharge, double mileage, int currentTrip) {
     this.id = id;
     this.tag = tag;
     this.status = status;
     this.gpsLocation = gpsLocation;
     this.batteryCharge = batteryCharge;
     this.mileage = mileage;
-    this.trips = trips;
     this.currentTrip = currentTrip;
   }
 
   public Scooter(String tag, ScooterStatus status, String gpsLocation,
-                 int batteryCharge, double mileage, List<Trip> trips, int currentTrip) {
+                 int batteryCharge, double mileage, int currentTrip) {
     this.tag = tag;
     this.status = status;
     this.gpsLocation = gpsLocation;
     this.batteryCharge = batteryCharge;
     this.mileage = mileage;
-    this.trips = trips;
     this.currentTrip = currentTrip;
   }
 
   public Scooter(String tag) {
-    this(0, tag, null, null, 0, 0.0, null, 0);
+    this(0, tag, null, null, 0, 0.0, 0);
   }
 
   /**
@@ -127,7 +130,7 @@ public class Scooter {
     int batteryCharge = (int) Math.floor(Math.random() * (100 - 5 + 1) + 5);
     double mileage = Math.floor(Math.random() * 10000);
 
-    return new Scooter(id, tag, status, gpsLocation, batteryCharge, mileage, null, 0);
+    return new Scooter(id, tag, status, gpsLocation, batteryCharge, mileage, 0);
   }
 
   public static Scooter createRandomScooter() {
@@ -146,7 +149,7 @@ public class Scooter {
     int batteryCharge = (int) Math.floor(Math.random() * (100 - 5 + 1) + 5);
     double mileage = Math.floor(Math.random() * 10000);
 
-    return new Scooter(newId++, tag, status, gpsLocation, batteryCharge, mileage, null, 0);
+    return new Scooter(newId++, tag, status, gpsLocation, batteryCharge, mileage, 0);
   }
 
   public long getId() {

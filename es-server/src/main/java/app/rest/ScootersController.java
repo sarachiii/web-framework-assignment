@@ -1,7 +1,9 @@
 package app.rest;
 
 import app.models.Scooter;
+import app.models.Trip;
 import app.repositories.ScootersRepository;
+import app.repositories.TripsRepositoryJpa;
 import app.rest.exception.PreConditionFailedException;
 import app.rest.exception.ScooterNotFoundException;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -18,6 +20,9 @@ public class ScootersController {
 
   @Autowired
   ScootersRepository scootersRepo;
+
+  @Autowired
+  TripsRepositoryJpa tripsRepository;
 
   //3.5 C: Test 2 scooters:
 //    @GetMapping("/scooters")
@@ -95,7 +100,21 @@ public class ScootersController {
   @RequestMapping("/scooters/summary")
   @ResponseBody
   public List<Scooter> getScooterSummary() {
-      return scootersRepo.findAll();
+      return getAllScooters();
   }
+
+  @PostMapping("/scooters/{id}/trips")
+  public ResponseEntity<Trip> saveTrip(@RequestBody Trip trip) {
+
+    Trip savedTrip = tripsRepository.save(trip);
+
+    URI location = ServletUriComponentsBuilder
+      .fromCurrentRequest()
+      .path("/{id}")
+      .buildAndExpand(savedTrip.getId()).toUri();
+
+    return ResponseEntity.created(location).body(savedTrip);
+  }
+
 }
 

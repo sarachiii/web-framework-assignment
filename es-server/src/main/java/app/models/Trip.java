@@ -74,6 +74,10 @@ public class Trip {
     this.scooter = scooter;
   }
 
+  public long getId() {
+    return id;
+  }
+
   public static Trip createRandomTrip(){
     LocalDateTime start = LocalDateTime.of(2020, Month.JANUARY, 1, 00, 00, 00);
     long startDays = ChronoUnit.DAYS.between(start, LocalDateTime.now());
