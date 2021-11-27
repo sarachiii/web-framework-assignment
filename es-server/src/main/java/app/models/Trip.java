@@ -100,4 +100,72 @@ public class Trip {
     Trip trip = new Trip(newId++, randomStartDate, randomEndDate, null, startgps, endgps, mileage, cost);
     return trip;
   }
+
+  public void setId(long id) {
+    this.id = id;
+  }
+
+  public LocalDateTime getStartDate() {
+    return startDate;
+  }
+
+  public void setStartDate(LocalDateTime startDate) {
+    this.startDate = startDate;
+  }
+
+  public LocalDateTime getEndDate() {
+    return endDate;
+  }
+
+  public void setEndDate(LocalDateTime endDate) {
+    this.endDate = endDate;
+  }
+
+  public LocalDateTime getTime() {
+    return time;
+  }
+
+  public void setTime(LocalDateTime time) {
+    this.time = time;
+  }
+
+  public String getStartPosition() {
+    return startPosition;
+  }
+
+  public void setStartPosition(String startPosition) {
+    this.startPosition = startPosition;
+  }
+
+  public String getEndPosition() {
+    return endPosition;
+  }
+
+  public void setEndPosition(String endPosition) {
+    this.endPosition = endPosition;
+  }
+
+  public double getMileage() {
+    return mileage;
+  }
+
+  public void setMileage(double mileage) {
+    this.mileage = mileage;
+  }
+
+  public double getCostOfTheTrip() {
+    return costOfTheTrip;
+  }
+
+  public void setCostOfTheTrip(double costOfTheTrip) {
+    this.costOfTheTrip = costOfTheTrip;
+  }
+
+  public static int getNewId() {
+    return newId;
+  }
+
+  public static void setNewId(int newId) {
+    Trip.newId = newId;
+  }
 }

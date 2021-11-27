@@ -106,7 +106,7 @@ public class ScootersController {
   @PostMapping("/scooters/{id}/trips")
   public ResponseEntity<Trip> saveTrip(@RequestBody Trip trip, @PathVariable("id") long id) {
 
-    Trip savedTrip;
+    Trip savedTrip = trip;
     Scooter scooter = getScooterById(id);
 
     URI location = ServletUriComponentsBuilder
@@ -114,10 +114,16 @@ public class ScootersController {
       .path("/{id}")
       .buildAndExpand(scooter.getId()).toUri();
 
-    if (scooter.getStatus() != Scooter.ScooterStatus.IDLE || scooter.getBatteryCharge() < 10) {
+    if (scooter.getStatus() != Scooter.ScooterStatus.IDLE) {
       throw new PreConditionFailedException("Scooter-Id=" + scooter.getId() + " with status " + scooter.getStatus() + " cannot be claimed for another trip");
+    } else if (scooter.getBatteryCharge() < 10) {
+      throw new PreConditionFailedException("Scooter-Id=" + scooter.getId() + " with battery charge " + scooter.getBatteryCharge() + " cannot be claimed for another trip");
     } else {
+      savedTrip.setStartPosition(scooter.getGpsLocation());
       savedTrip = tripsRepository.save(trip);
+      scooter.setStatus(Scooter.ScooterStatus.INUSE);
+      scooter.associateTrip(trip);
+      scootersRepo.save(scooter);
       return ResponseEntity.created(location).body(savedTrip);
     }
   }
