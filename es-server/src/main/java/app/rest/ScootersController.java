@@ -2,8 +2,7 @@ package app.rest;
 
 import app.models.Scooter;
 import app.models.Trip;
-import app.repositories.ScootersRepository;
-import app.repositories.TripsRepositoryJpa;
+import app.repositories.EntityRepository;
 import app.rest.exception.PreConditionFailedException;
 import app.rest.exception.ScooterNotFoundException;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -19,10 +18,10 @@ import java.util.List;
 public class ScootersController {
 
   @Autowired
-  ScootersRepository scootersRepo;
+  private EntityRepository<Scooter> scootersRepo;
 
   @Autowired
-  TripsRepositoryJpa tripsRepository;
+  private EntityRepository<Trip> tripsRepository;
 
   //3.5 C: Test 2 scooters:
 //    @GetMapping("/scooters")
@@ -86,13 +85,11 @@ public class ScootersController {
   //Delete a scooter by id from the scooters list
   @DeleteMapping("/scooters/{id}")
   @ResponseBody
-  public ResponseEntity<Scooter> deleteScooterById(@PathVariable Long id) {
-    Scooter scooter = scootersRepo.deleteById(id);
-
-    if (scooter == null)
+  public ResponseEntity<String> deleteScooterById(@PathVariable Long id) {
+    if (!scootersRepo.deleteById(id))
       throw new ScooterNotFoundException("id-" + id);
 
-    return ResponseEntity.ok(scooter);
+    return ResponseEntity.ok().body("Scooter with id " + id + " was deleted.");
   }
 
   //GET summary of every scooter with id, tag, status and battery charge

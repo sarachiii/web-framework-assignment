@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-public class Scooter {
+public class Scooter implements Identifiable{
   public enum ScooterStatus {
     IDLE,
     INUSE,
@@ -264,6 +264,4 @@ public class Scooter {
   public int hashCode() {
     return Objects.hash(id);
   }
-
-
 }

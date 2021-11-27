@@ -11,14 +11,19 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
 
-@Repository
+@Repository("SCOOTERS.JPA")
 @Transactional
 @Primary
-public class ScootersRepositoryJpa implements ScootersRepository {
+public class ScootersRepositoryJpa
+  extends AbstractEntityRepositoryJpa<Scooter> {
 
   @Autowired
   @PersistenceContext
   EntityManager entityManager;
+
+  public ScootersRepositoryJpa() {
+    super(Scooter.class);
+  }
 
   @Override
   public List<Scooter> findAll() {
@@ -38,9 +43,12 @@ public class ScootersRepositoryJpa implements ScootersRepository {
   }
 
   @Override
-  public Scooter deleteById(long id) {
+  public boolean deleteById(long id) {
     Scooter scooter = findById(id);
-    entityManager.remove(scooter);
-    return null;
+    if(scooter != null){
+      entityManager.remove(scooter);
+      return true;
+    }
+    return false;
   }
 }

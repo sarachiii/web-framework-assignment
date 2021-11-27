@@ -1,6 +1,5 @@
 package app.models;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -11,7 +10,7 @@ import java.util.Objects;
 import java.util.Random;
 
 @Entity
-public class Trip {
+public class Trip implements Identifiable {
 
   @Id
   @GeneratedValue
@@ -45,10 +44,11 @@ public class Trip {
 
   /**
    * Associates the given scooter with this trip, if not yet associated also checks upon the current trip
+   *
    * @param scooter provide null to dissociate the currently associated scooter
    * @return whether a new association has been added
    */
-  public boolean associateScooter(Scooter scooter){
+  public boolean associateScooter(Scooter scooter) {
     this.scooter = scooter;
     return true;
   }
@@ -78,7 +78,7 @@ public class Trip {
     return id;
   }
 
-  public static Trip createRandomTrip(){
+  public static Trip createRandomTrip() {
     LocalDateTime start = LocalDateTime.of(2020, Month.JANUARY, 1, 00, 00, 00);
     long startDays = ChronoUnit.DAYS.between(start, LocalDateTime.now());
     LocalDateTime randomStartDate = start.plusDays(new Random().nextInt((int) startDays + 1))
