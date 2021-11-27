@@ -3,10 +3,12 @@ package app.rest;
 import app.models.Scooter;
 import app.models.Trip;
 import app.repositories.EntityRepository;
+import app.rest.exception.BadRequestException;
 import app.rest.exception.PreConditionFailedException;
 import app.rest.exception.ScooterNotFoundException;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -33,8 +35,18 @@ public class ScootersController {
 //    }
 
   //3.5 D: GET the scooters list with all scooters
-  @GetMapping("/scooters")
-  public List<Scooter> getAllScooters() {
+  @GetMapping({"/scooters", "/scooters/battery={battery}", "scooters/status={status}"})
+  @ResponseBody
+  public List<Scooter> getAllScooters(@RequestParam(required = false, name="battery") long battery,
+                                      @RequestParam(required = false, name = "status") String status){
+//    if(battery > 0){
+//      return scootersRepo.findByQuery("Scooter_find_by_battery", battery);
+//    } else if (!status.isEmpty()) {
+//      if (!status.equals(Scooter.ScooterStatus.INUSE.toString()) || !status.equals(Scooter.ScooterStatus.MAINTENANCE.toString()) || !status.equals(Scooter.ScooterStatus.INUSE.toString())) {
+//       throw new BadRequestException("status=" + status + " is not a valid scooter status value");
+//      }
+//      return scootersRepo.findByQuery("Scooter_find_by_status", status);
+//    }
     return scootersRepo.findAll();
   }
 
@@ -97,7 +109,7 @@ public class ScootersController {
   @RequestMapping("/scooters/summary")
   @ResponseBody
   public List<Scooter> getScooterSummary() {
-    return getAllScooters();
+    return scootersRepo.findAll();
   }
 
   @PostMapping("/scooters/{id}/trips")

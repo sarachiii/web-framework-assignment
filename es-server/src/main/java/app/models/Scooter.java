@@ -8,6 +8,13 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
+
+@NamedQueries({
+  @NamedQuery(name="Scooter_find_by_status",
+    query="SELECT s FROM Scooter s where s.status = ?1"),
+  @NamedQuery(name="Scooter_find_by_battery",
+    query="SELECT s FROM Scooter s WHERE s.batteryCharge < ?1")
+})
 public class Scooter implements Identifiable{
   public enum ScooterStatus {
     IDLE,
@@ -154,6 +161,37 @@ public class Scooter implements Identifiable{
     return new Scooter(newId++, tag, status, gpsLocation, batteryCharge, mileage, 0);
   }
 
+  @Override
+  public String toString() {
+    return "Scooter{" +
+      "id=" + id +
+      ", tag='" + tag + '\'' +
+      ", status=" + status +
+      ", gpsLocation='" + gpsLocation + '\'' +
+      ", batteryCharge=" + batteryCharge +
+      ", mileage=" + mileage +
+      ", trips=" + trips +
+//      ", trips=" + Arrays.toString(trips) +
+      ", currentTrip='" + currentTrip + '\'' +
+      '}';
+  }
+
+  public static class Normal {
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Scooter scooter = (Scooter) o;
+    return id == scooter.id;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
+  }
+
   public long getId() {
     return id;
   }
@@ -234,34 +272,4 @@ public class Scooter implements Identifiable{
     Scooter.newLongitude = newLongitude;
   }
 
-  @Override
-  public String toString() {
-    return "Scooter{" +
-      "id=" + id +
-      ", tag='" + tag + '\'' +
-      ", status=" + status +
-      ", gpsLocation='" + gpsLocation + '\'' +
-      ", batteryCharge=" + batteryCharge +
-      ", mileage=" + mileage +
-      ", trips=" + trips +
-//      ", trips=" + Arrays.toString(trips) +
-      ", currentTrip='" + currentTrip + '\'' +
-      '}';
-  }
-
-  public static class Normal {
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    Scooter scooter = (Scooter) o;
-    return id == scooter.id;
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id);
-  }
 }

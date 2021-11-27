@@ -51,4 +51,11 @@ public class ScootersRepositoryJpa
     }
     return false;
   }
+
+  @Override
+  public List<Scooter> findByQuery(String jpqlName, Object... params0) {
+    TypedQuery<Scooter> query = this.entityManager.createNamedQuery(jpqlName, Scooter.class);
+    query.setParameter(1, params0).getResultList();
+    return query.getResultList();
+  }
 }
