@@ -39,14 +39,14 @@ public class ScootersController {
   @ResponseBody
   public List<Scooter> getAllScooters(@RequestParam(required = false, name="battery") long battery,
                                       @RequestParam(required = false, name = "status") String status){
-//    if(battery > 0){
-//      return scootersRepo.findByQuery("Scooter_find_by_battery", battery);
-//    } else if (!status.isEmpty()) {
-//      if (!status.equals(Scooter.ScooterStatus.INUSE.toString()) || !status.equals(Scooter.ScooterStatus.MAINTENANCE.toString()) || !status.equals(Scooter.ScooterStatus.INUSE.toString())) {
-//       throw new BadRequestException("status=" + status + " is not a valid scooter status value");
-//      }
-//      return scootersRepo.findByQuery("Scooter_find_by_status", status);
-//    }
+    if(battery > 0){
+      return scootersRepo.findByQuery("Scooter_find_by_battery", battery);
+    } else if (!status.isEmpty()) {
+      if (!status.equals(Scooter.ScooterStatus.IDLE.toString())) {
+       throw new BadRequestException("status=" + status + " is not a valid scooter status value");
+      }
+      return scootersRepo.findByQuery("Scooter_find_by_status", status);
+    }
     return scootersRepo.findAll();
   }
 
