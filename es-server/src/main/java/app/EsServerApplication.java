@@ -37,11 +37,13 @@ public class EsServerApplication implements CommandLineRunner {
   }
 
   private void createInitialScooters() {
-    // check whether the repo is empty
     List<Scooter> scooters = this.scootersRepo.findAll();
     List<Trip> trips = this.tripRepo.findAll();
 
+    // check whether the repo is empty
     if (scooters != null && scooters.size() > 0) return;
+    if (trips != null && trips.size() > 0) return;
+
     System.out.println("Configuring some initial scooter data");
 
     Random randomGenerator = new Random();
@@ -51,7 +53,7 @@ public class EsServerApplication implements CommandLineRunner {
       Scooter savedScooter = this.scootersRepo.save(scooter);
 
       int randomInt = randomGenerator.nextInt(3) + 1; //create a random number
-      //associate a random number of trips to a scooter
+      // associate a random number of trips to a scooter
       for (int j = 0; j < randomInt; j++) {
         logger.info("randomInt -> {}", randomInt);
         Trip trip = Trip.createRandomTrip();

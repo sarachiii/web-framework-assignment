@@ -121,7 +121,8 @@ public class ScootersController {
     URI location = ServletUriComponentsBuilder
       .fromCurrentRequest()
       .path("/{id}")
-      .buildAndExpand(scooter.getId()).toUri();
+      .buildAndExpand(id).toUri();
+//      .buildAndExpand(scooter.getId()).toUri();
 
     if (scooter.getStatus() != Scooter.ScooterStatus.IDLE) {
       throw new PreConditionFailedException("Scooter-Id=" + scooter.getId() + " with status " + scooter.getStatus() + " cannot be claimed for another trip");
