@@ -11,8 +11,8 @@ import java.util.Random;
 
 @Entity
 
-@NamedQuery(name="Trip_find_current_from_scooter",
-  query="SELECT t FROM Trip t where t.scooter.status = 'INUSE'")
+@NamedQuery(name = "Trip_find_current_from_scooter",
+  query = "SELECT t FROM Trip t where t.scooter.status = 'INUSE'")
 
 public class Trip implements Identifiable {
 
@@ -53,9 +53,13 @@ public class Trip implements Identifiable {
    * @return whether a new association has been added
    */
   public boolean associateScooter(Scooter scooter) {
-    this.scooter = scooter;
-    return true;
+    if (this.scooter == null || scooter == null) {
+      this.setScooter(scooter);
+      return true;
+    }
+    return false;
   }
+
 
   @Override
   public boolean equals(Object o) {

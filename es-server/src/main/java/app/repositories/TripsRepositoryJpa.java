@@ -15,8 +15,7 @@ import java.util.List;
 @Repository("TRIPS.JPA")
 @Transactional
 @Primary
-public class TripsRepositoryJpa
-  extends AbstractEntityRepositoryJpa<Trip> {
+public class TripsRepositoryJpa extends AbstractEntityRepositoryJpa<Trip> {
 
   @Autowired
   @PersistenceContext
@@ -46,7 +45,7 @@ public class TripsRepositoryJpa
   @Override
   public boolean deleteById(long id) {
     Trip trip = findById(id);
-    if(trip != null){
+    if (trip != null) {
       entityManager.remove(trip);
       return true;
     }

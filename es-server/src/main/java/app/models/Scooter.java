@@ -104,6 +104,9 @@ public class Scooter implements Identifiable{
   public boolean dissociateTrip(Trip trip) {
     if (trips.contains(trip)) {
       trips.remove(trip);
+      if(trip.getId() == currentTrip){
+        this.currentTrip = 0;
+      }
       return true;
     }
     return false;

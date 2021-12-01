@@ -14,8 +14,7 @@ import java.util.List;
 @Repository("SCOOTERS.JPA")
 @Transactional
 @Primary
-public class ScootersRepositoryJpa
-  extends AbstractEntityRepositoryJpa<Scooter> {
+public class ScootersRepositoryJpa extends AbstractEntityRepositoryJpa<Scooter> {
 
   @Autowired
   @PersistenceContext
@@ -45,7 +44,7 @@ public class ScootersRepositoryJpa
   @Override
   public boolean deleteById(long id) {
     Scooter scooter = findById(id);
-    if(scooter != null){
+    if (scooter != null) {
       entityManager.remove(scooter);
       return true;
     }
