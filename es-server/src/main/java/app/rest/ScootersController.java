@@ -8,7 +8,6 @@ import app.rest.exception.PreConditionFailedException;
 import app.rest.exception.ScooterNotFoundException;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -23,7 +22,7 @@ public class ScootersController {
   private EntityRepository<Scooter> scootersRepo;
 
   @Autowired
-  private EntityRepository<Trip> tripsRepository;
+  private EntityRepository<Trip> tripsRepo;
 
   //3.5 C: Test 2 scooters:
 //    @GetMapping("/scooters")
@@ -34,20 +33,33 @@ public class ScootersController {
 //      );
 //    }
 
+
   //3.5 D: GET the scooters list with all scooters
   @GetMapping({"/scooters", "/scooters/battery={battery}", "scooters/status={status}"})
   @ResponseBody
-  public List<Scooter> getAllScooters(@RequestParam(required = false, name="battery") long battery,
-                                      @RequestParam(required = false, name = "status") String status){
-    if(battery > 0){
+  public List<Scooter> getAllScooters(@PathVariable(required = false, name = "battery") long battery,
+                                      @PathVariable(required = false, name = "status") String status) {
+    //TODO ?? add an error response if an unsupported combination of request parameters is provided,
+    // it should return with a useful error message
+    if (battery > 0) {
+      if (battery > 100) throw new BadRequestException("battery=" + battery + " is not a valid battery value");
       return scootersRepo.findByQuery("Scooter_find_by_battery", battery);
     } else if (!status.isEmpty()) {
-      if (!status.equals(Scooter.ScooterStatus.INUSE.toString()) || !status.equals(Scooter.ScooterStatus.MAINTENANCE.toString()) || !status.equals(Scooter.ScooterStatus.IDLE.toString())) {
-       throw new BadRequestException("status=" + status + " is not a valid scooter status value");
+      if (!status.equals(Scooter.ScooterStatus.INUSE.toString()) ||
+        !status.equals(Scooter.ScooterStatus.MAINTENANCE.toString()) ||
+        !status.equals(Scooter.ScooterStatus.IDLE.toString())) {
+        throw new BadRequestException("status=" + status + " is not a valid scooter status value");
       }
       return scootersRepo.findByQuery("Scooter_find_by_status", status);
     }
     return scootersRepo.findAll();
+  }
+
+  //4.2.1 D: GET a list of currentTrips of the scooters that are in use
+  @GetMapping("/scooters/currenttrips")
+  @ResponseBody
+  public List<Trip> getAllCurrentTrips() {
+    return tripsRepo.findByQuery("Trip_find_current_from_scooter");
   }
 
   //3.6 CRUD methods
@@ -130,7 +142,7 @@ public class ScootersController {
       throw new PreConditionFailedException("Scooter-Id=" + scooter.getId() + " with battery charge " + scooter.getBatteryCharge() + " cannot be claimed for another trip");
     } else {
       savedTrip.setStartPosition(scooter.getGpsLocation());
-      savedTrip = tripsRepository.save(trip);
+      savedTrip = tripsRepo.save(trip);
       scooter.setStatus(Scooter.ScooterStatus.INUSE);
       scooter.associateTrip(trip);
       scootersRepo.save(scooter);
