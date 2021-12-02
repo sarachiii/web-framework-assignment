@@ -37,15 +37,17 @@ public class ScootersController {
   //3.5 D: GET the scooters list with all scooters
   @GetMapping({"/scooters", "/scooters/battery={battery}", "scooters/status={status}"})
   @ResponseBody
-  public List<Scooter> getAllScooters(@PathVariable(required = false, name = "battery") long battery,
+  public List<Scooter> getAllScooters(@PathVariable(required = false, name = "battery") int battery,
                                       @PathVariable(required = false, name = "status") String status) {
+//  public List<Scooter> getAllScooters(@RequestParam(required = false, name = "battery", defaultValue = "0") int battery,
+//                                      @RequestParam(required = false, name = "status", defaultValue = "0") String status) {
     //TODO ?? add an error response if an unsupported combination of request parameters is provided,
     // it should return with a useful error message
     if (battery > 0) {
       if (battery > 100) throw new BadRequestException("battery=" + battery + " is not a valid battery value");
       return scootersRepo.findByQuery("Scooter_find_by_battery", battery);
     } else if (!status.isEmpty()) {
-      if (!status.equals(Scooter.ScooterStatus.INUSE.toString()) ||
+      if (!status.equals("inuse") ||
         !status.equals(Scooter.ScooterStatus.MAINTENANCE.toString()) ||
         !status.equals(Scooter.ScooterStatus.IDLE.toString())) {
         throw new BadRequestException("status=" + status + " is not a valid scooter status value");
