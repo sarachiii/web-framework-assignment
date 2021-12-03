@@ -13,7 +13,7 @@ import java.util.Random;
 @Entity
 
 @NamedQuery(name = "Trip_find_current_from_scooter",
-  query = "SELECT t FROM Trip t where t.scooter.status = 'INUSE'")
+  query = "SELECT t FROM Trip t where t.scooter.status = ?1")
 
 public class Trip implements Identifiable {
 
@@ -30,7 +30,6 @@ public class Trip implements Identifiable {
   private static int newId = 1000;
 
   @ManyToOne
-  @JsonIgnore
   private Scooter scooter;
 
   public Trip() {
@@ -108,7 +107,7 @@ public class Trip implements Identifiable {
     String endgps = "gps(" + Scooter.createLatitude() + "," + Scooter.createLongitude() + ")";
     double mileage = Math.floor(Math.random() * 10000);
     double cost = mileage / 10;
-    
+
     return new Trip(newId++, randomStartDate, randomEndDate, startgps, endgps, mileage, cost);
   }
 

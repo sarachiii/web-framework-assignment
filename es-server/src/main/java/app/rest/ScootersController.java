@@ -56,7 +56,7 @@ public class ScootersController {
   @GetMapping("/scooters/currenttrips")
   @ResponseBody
   public List<Trip> getAllCurrentTrips() {
-    return tripsRepo.findByQuery("Trip_find_current_from_scooter");
+    return tripsRepo.findByQuery("Trip_find_current_from_scooter", Scooter.ScooterStatus.INUSE);
   }
 
   //3.6 CRUD methods
