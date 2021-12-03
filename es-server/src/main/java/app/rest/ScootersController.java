@@ -15,6 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ScootersController {
@@ -35,17 +36,18 @@ public class ScootersController {
 //    }
 
   //3.5 D: GET the scooters list with all scooters
-  @GetMapping({"/scooters", "/scooters/battery={battery}", "scooters/status={status}"})
+  @GetMapping("/scooters")
   @ResponseBody
-  public List<Scooter> getAllScooters(@RequestParam(required = false, name="battery") long battery,
+  public List<Scooter> getAllScooters(@RequestParam(required = false, name = "battery") Integer battery,
                                       @RequestParam(required = false, name = "status") String status){
-    if(battery > 0){
+    if(battery != null && battery > 0){
       return scootersRepo.findByQuery("Scooter_find_by_battery", battery);
-    } else if (!status.isEmpty()) {
-      if (!status.equals(Scooter.ScooterStatus.INUSE.toString()) || !status.equals(Scooter.ScooterStatus.MAINTENANCE.toString()) || !status.equals(Scooter.ScooterStatus.IDLE.toString())) {
-       throw new BadRequestException("status=" + status + " is not a valid scooter status value");
+    } else if (status != null && !status.isEmpty()) {
+      if(status.equals(Scooter.ScooterStatus.INUSE.toString()) || status.equals(Scooter.ScooterStatus.MAINTENANCE.toString()) || status.equals(Scooter.ScooterStatus.IDLE.toString())) {
+        return scootersRepo.findByQuery("Scooter_find_by_status", Scooter.ScooterStatus.valueOf(status));
+      } else {
+        throw new BadRequestException("status=" + status + " is not a valid scooter status value");
       }
-      return scootersRepo.findByQuery("Scooter_find_by_status", status);
     }
     return scootersRepo.findAll();
   }

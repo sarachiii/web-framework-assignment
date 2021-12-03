@@ -8,7 +8,7 @@ import javax.transaction.Transactional;
 
 @Transactional
 public abstract class AbstractEntityRepositoryJpa<E extends Identifiable>
-  implements  EntityRepository<E>{
+  implements EntityRepository<E>{
 
   @PersistenceContext
   protected EntityManager entityManager;

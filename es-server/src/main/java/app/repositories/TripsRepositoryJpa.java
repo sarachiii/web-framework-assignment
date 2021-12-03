@@ -54,9 +54,8 @@ public class TripsRepositoryJpa
   }
 
   @Override
-  public List<Trip> findByQuery(String jpqlName, Object... params0) {
+  public List<Trip> findByQuery(String jpqlName, Object params0) {
     TypedQuery<Trip> query = this.entityManager.createNamedQuery(jpqlName, Trip.class);
-    query.setParameter(1, params0).getResultList();
-    return query.getResultList();
+    return query.setParameter(1, params0).getResultList();
   }
 }

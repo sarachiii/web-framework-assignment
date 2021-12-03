@@ -90,7 +90,6 @@ public class Trip implements Identifiable {
       .plusMinutes(new Random().nextInt(60))
       .plusSeconds(new Random().nextInt(60));
 
-
     long endDays = ChronoUnit.DAYS.between(randomStartDate, LocalDateTime.now());
     LocalDateTime randomEndDate = start.plusDays(new Random().nextInt((int) endDays + 1))
       .plusHours(new Random().nextInt(24))
