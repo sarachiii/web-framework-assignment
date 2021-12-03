@@ -104,6 +104,9 @@ public class Scooter implements Identifiable{
   public boolean dissociateTrip(Trip trip) {
     if (trips.contains(trip)) {
       trips.remove(trip);
+      if(trip.getId() == currentTrip){
+        this.currentTrip = 0;
+      }
       return true;
     }
     return false;
@@ -138,7 +141,6 @@ public class Scooter implements Identifiable{
     String gpsLocation = createLatitude() + " " + createLongitude();
     int batteryCharge = (int) Math.floor(Math.random() * (100 - 5 + 1) + 5);
     double mileage = Math.floor(Math.random() * 10000);
-
     return new Scooter(id, tag, status, gpsLocation, batteryCharge, mileage, 0);
   }
 
@@ -171,7 +173,6 @@ public class Scooter implements Identifiable{
       ", batteryCharge=" + batteryCharge +
       ", mileage=" + mileage +
       ", trips=" + trips +
-//      ", trips=" + Arrays.toString(trips) +
       ", currentTrip='" + currentTrip + '\'' +
       '}';
   }

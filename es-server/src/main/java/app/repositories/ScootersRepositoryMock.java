@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class ScootersRepositoryMock implements ScootersRepository{
+public class ScootersRepositoryMock implements ScootersRepository {
 
   private static List<Scooter> scooters = new ArrayList<>();
   private long id = 30000;
@@ -37,16 +37,16 @@ public class ScootersRepositoryMock implements ScootersRepository{
   @Override
   public Scooter save(Scooter scooter) {
 
-    if(scooter.getId() == 0){ //if id is == 0, generate new unique id
+    if (scooter.getId() == 0) { //if id is == 0, generate new unique id
       scooter.setId(++id);
     }
 
     int indexNumber = scooters.indexOf(scooter);
 
-    if(indexNumber == -1) { //if scooter doesn't exist in scooters list add it, else update the scooter
+    if (indexNumber == -1) { //if scooter doesn't exist in scooters list add it, else update the scooter
       scooters.add(scooter);
     } else {
-      scooters.set(indexNumber,scooter);
+      scooters.set(indexNumber, scooter);
     }
 
     return scooter;

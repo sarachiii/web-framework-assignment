@@ -1,6 +1,7 @@
 package app.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,8 +12,8 @@ import java.util.Random;
 
 @Entity
 
-@NamedQuery(name="Trip_find_current_from_scooter",
-  query="SELECT t FROM Trip t where t.scooter.status = 'INUSE'")
+@NamedQuery(name = "Trip_find_current_from_scooter",
+  query = "SELECT t FROM Trip t where t.scooter.status = 'INUSE'")
 
 public class Trip implements Identifiable {
 
@@ -21,7 +22,7 @@ public class Trip implements Identifiable {
   private long id;
   private LocalDateTime startDate;
   private LocalDateTime endDate;
-  private LocalDateTime time;
+  //  private LocalDateTime time;
   private String startPosition;
   private String endPosition;
   private double mileage;
@@ -35,11 +36,10 @@ public class Trip implements Identifiable {
   public Trip() {
   }
 
-  public Trip(long id, LocalDateTime startDate, LocalDateTime endDate, LocalDateTime time, String startPosition, String endPosition, double mileage, double costOfTheTrip) {
+  public Trip(long id, LocalDateTime startDate, LocalDateTime endDate, String startPosition, String endPosition, double mileage, double costOfTheTrip) {
     this.id = id;
     this.startDate = startDate;
     this.endDate = endDate;
-    this.time = time;
     this.startPosition = startPosition;
     this.endPosition = endPosition;
     this.mileage = mileage;
@@ -53,9 +53,13 @@ public class Trip implements Identifiable {
    * @return whether a new association has been added
    */
   public boolean associateScooter(Scooter scooter) {
-    this.scooter = scooter;
-    return true;
+    if (this.scooter == null || scooter == null) {
+      this.setScooter(scooter);
+      return true;
+    }
+    return false;
   }
+
 
   @Override
   public boolean equals(Object o) {
@@ -82,26 +86,30 @@ public class Trip implements Identifiable {
     return id;
   }
 
-  public static Trip createRandomTrip() {
+  public static LocalDateTime createRandomDate() {
     LocalDateTime start = LocalDateTime.of(2020, Month.JANUARY, 1, 00, 00, 00);
-    long startDays = ChronoUnit.DAYS.between(start, LocalDateTime.now());
-    LocalDateTime randomStartDate = start.plusDays(new Random().nextInt((int) startDays + 1))
-      .plusHours(new Random().nextInt(24))
-      .plusMinutes(new Random().nextInt(60))
-      .plusSeconds(new Random().nextInt(60));
+    long days = ChronoUnit.DAYS.between(start, LocalDateTime.now());
 
-    long endDays = ChronoUnit.DAYS.between(randomStartDate, LocalDateTime.now());
-    LocalDateTime randomEndDate = start.plusDays(new Random().nextInt((int) endDays + 1))
+    return start.plusDays(new Random().nextInt((int) days + 1))
       .plusHours(new Random().nextInt(24))
       .plusMinutes(new Random().nextInt(60))
       .plusSeconds(new Random().nextInt(60));
+  }
+
+  public static Trip createRandomTrip() {
+    LocalDateTime randomStartDate = createRandomDate();
+    LocalDateTime randomEndDate = createRandomDate();
+
+    while (randomStartDate.isAfter(randomEndDate)) {
+      randomEndDate = createRandomDate();
+    }
 
     String startgps = "gps(" + Scooter.createLatitude() + "," + Scooter.createLongitude() + ")";
     String endgps = "gps(" + Scooter.createLatitude() + "," + Scooter.createLongitude() + ")";
     double mileage = Math.floor(Math.random() * 10000);
     double cost = mileage / 10;
-    Trip trip = new Trip(newId++, randomStartDate, randomEndDate, null, startgps, endgps, mileage, cost);
-    return trip;
+    
+    return new Trip(newId++, randomStartDate, randomEndDate, startgps, endgps, mileage, cost);
   }
 
   public void setId(long id) {
@@ -122,14 +130,6 @@ public class Trip implements Identifiable {
 
   public void setEndDate(LocalDateTime endDate) {
     this.endDate = endDate;
-  }
-
-  public LocalDateTime getTime() {
-    return time;
-  }
-
-  public void setTime(LocalDateTime time) {
-    this.time = time;
   }
 
   public String getStartPosition() {

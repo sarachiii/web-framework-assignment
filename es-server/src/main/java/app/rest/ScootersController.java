@@ -8,7 +8,6 @@ import app.rest.exception.PreConditionFailedException;
 import app.rest.exception.ScooterNotFoundException;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -24,7 +23,7 @@ public class ScootersController {
   private EntityRepository<Scooter> scootersRepo;
 
   @Autowired
-  private EntityRepository<Trip> tripsRepository;
+  private EntityRepository<Trip> tripsRepo;
 
   //3.5 C: Test 2 scooters:
 //    @GetMapping("/scooters")
@@ -34,6 +33,7 @@ public class ScootersController {
 //        new Scooter("Test-scooter-B")
 //      );
 //    }
+
 
   //3.5 D: GET the scooters list with all scooters
   @GetMapping("/scooters")
@@ -50,6 +50,13 @@ public class ScootersController {
       }
     }
     return scootersRepo.findAll();
+  }
+
+  //4.2.1 D: GET a list of currentTrips of the scooters that are in use
+  @GetMapping("/scooters/currenttrips")
+  @ResponseBody
+  public List<Trip> getAllCurrentTrips() {
+    return tripsRepo.findByQuery("Trip_find_current_from_scooter");
   }
 
   //3.6 CRUD methods
@@ -123,7 +130,8 @@ public class ScootersController {
     URI location = ServletUriComponentsBuilder
       .fromCurrentRequest()
       .path("/{id}")
-      .buildAndExpand(scooter.getId()).toUri();
+      .buildAndExpand(id).toUri();
+//      .buildAndExpand(scooter.getId()).toUri();
 
     if (scooter.getStatus() != Scooter.ScooterStatus.IDLE) {
       throw new PreConditionFailedException("Scooter-Id=" + scooter.getId() + " with status " + scooter.getStatus() + " cannot be claimed for another trip");
@@ -131,7 +139,7 @@ public class ScootersController {
       throw new PreConditionFailedException("Scooter-Id=" + scooter.getId() + " with battery charge " + scooter.getBatteryCharge() + " cannot be claimed for another trip");
     } else {
       savedTrip.setStartPosition(scooter.getGpsLocation());
-      savedTrip = tripsRepository.save(trip);
+      savedTrip = tripsRepo.save(trip);
       scooter.setStatus(Scooter.ScooterStatus.INUSE);
       scooter.associateTrip(trip);
       scootersRepo.save(scooter);
