@@ -1,5 +1,6 @@
 package app.rest.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -18,6 +19,14 @@ public class WebConfig implements WebMvcConfigurer {
       .allowedOrigins("http://localhost:4203", "http://localhost:4200");
   }
 
+  //TODO: Which paths do need to be secured? /scooters? Filtering works btw..
   public final Set<String> SECURED_PATHS =
     Set.of("/scooters");
+
+  @Value("${jwt.pass-phrase:This is very secret information for my private encryption key.}")
+  private String passphrase;
+
+  public String getPassphrase() {
+    return passphrase;
+  }
 }

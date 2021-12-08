@@ -1,7 +1,9 @@
 package app.repositories;
 
+import app.models.JWToken;
 import app.rest.config.WebConfig;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -27,8 +29,26 @@ public class JWTRequestFilter extends OncePerRequestFilter {
       this.apiConfig.SECURED_PATHS.stream().noneMatch(servletPath::startsWith)) {
 
       chain.doFilter(request, response);
+
+      String encryptedToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+
+      // block the request if no token was found
+      if (encryptedToken == null) {
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "No token provided. You need to logon first.");
+      }
+
+      // decode the encoded and signed token, afte removing optional Bearer prefix
+      JWToken jwToken = null;
+      try {
+
+        //TODO apiConfig has getpassphrase...
+        jwToken = JWToken.decode(encryptedToken.replace("Bearer ", ""), this.apiConfig.getPassphrase());
+      } catch (RuntimeException e) {
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage() + " You need to logon first.");
+      }
       return;
     }
   }
+
 
 }
