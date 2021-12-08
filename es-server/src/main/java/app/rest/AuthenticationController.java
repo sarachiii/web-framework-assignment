@@ -19,7 +19,7 @@ public class AuthenticationController {
     String name = User.getNameFromEmail(email);
 
     if (Objects.equals(password, name)) {
-      return ResponseEntity.accepted().body(new User(name, email, "Accepted"));
+      return ResponseEntity.accepted().body(new User(name, email, "registered user"));
     } else {
       throw new NotAcceptableException("password= " + password + " is not an acceptable value");
     }
