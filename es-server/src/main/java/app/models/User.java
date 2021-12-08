@@ -7,7 +7,7 @@ import javax.persistence.Id;
 @Entity
 public class User {
 
-  private static long nextId = 0;
+  private static long nextId = 0L;
 
   @Id
   @GeneratedValue
