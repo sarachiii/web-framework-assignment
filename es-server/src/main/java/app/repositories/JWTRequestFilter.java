@@ -28,27 +28,29 @@ public class JWTRequestFilter extends OncePerRequestFilter {
     if (HttpMethod.OPTIONS.matches(request.getMethod()) ||
       this.apiConfig.SECURED_PATHS.stream().noneMatch(servletPath::startsWith)) {
 
-        if(shouldNotFilter(request)) {
-          chain.doFilter(request, response);
-        }
+      //exclude paths from filtering
+      if (shouldNotFilter(request)) {
+        chain.doFilter(request, response);
+      }
 
       String encryptedToken = request.getHeader(HttpHeaders.AUTHORIZATION);
 
       // block the request if no token was found
       if (encryptedToken == null) {
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "No token provided. You need to logon first.");
+        return;
       }
 
       // decode the encoded and signed token, afte removing optional Bearer prefix
       JWToken jwToken = null;
       try {
-
-        //TODO apiConfig has getpassphrase...
         jwToken = JWToken.decode(encryptedToken.replace("Bearer ", ""), this.apiConfig.getPassphrase());
+        request.setAttribute(JWToken.JWT_ATTRIBUTE_NAME, jwToken);
+
+        chain.doFilter(request, response);
       } catch (RuntimeException e) {
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage() + " You need to logon first.");
       }
-      return;
     }
   }
 

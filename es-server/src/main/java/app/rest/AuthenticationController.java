@@ -1,5 +1,6 @@
 package app.rest;
 
+import app.models.JWToken;
 import app.models.User;
 import app.rest.exception.NotAcceptableException;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -13,7 +14,7 @@ import java.util.Objects;
 public class AuthenticationController {
 
   @PostMapping("login")
-  public ResponseEntity<User> login(@RequestBody ObjectNode json) {
+  public ResponseEntity<User> login(@RequestBody ObjectNode json, @RequestAttribute(value = JWToken.JWT_ATTRIBUTE_NAME) JWToken tokenInfo) {
     String email = json.get("email").asText();
     String password = json.get("password").asText();
     String name = User.getNameFromEmail(email);

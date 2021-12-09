@@ -9,6 +9,7 @@ import java.util.Date;
 
 public class JWToken {
 
+  public static final String JWT_ATTRIBUTE_NAME = "authorization";
   private static final String JWT_CALLNAME_CLAIM = "sub";
   private static final String JWT_USERID_CLAIM = "id";
   private static final String JWT_ROLE_CLAIM = "role";
@@ -38,6 +39,7 @@ public class JWToken {
   }
 
   public static JWToken decode(String token, String passphrase) throws ExpiredJwtException, MalformedJwtException {
+
     // Validate the token
     Key key = getKey(passphrase);
 
@@ -60,5 +62,4 @@ public class JWToken {
     byte[] hmacKey = passphrase.getBytes(StandardCharsets.UTF_8);
     return new SecretKeySpec(hmacKey, SignatureAlgorithm.HS512.getJcaName());
   }
-
 }
