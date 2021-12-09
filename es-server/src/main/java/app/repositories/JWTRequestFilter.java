@@ -28,7 +28,9 @@ public class JWTRequestFilter extends OncePerRequestFilter {
     if (HttpMethod.OPTIONS.matches(request.getMethod()) ||
       this.apiConfig.SECURED_PATHS.stream().noneMatch(servletPath::startsWith)) {
 
-      chain.doFilter(request, response);
+        if(shouldNotFilter(request)) {
+          chain.doFilter(request, response);
+        }
 
       String encryptedToken = request.getHeader(HttpHeaders.AUTHORIZATION);
 
@@ -50,5 +52,9 @@ public class JWTRequestFilter extends OncePerRequestFilter {
     }
   }
 
-
+  @Override
+  protected boolean shouldNotFilter(HttpServletRequest request) {
+    String path = request.getServletPath();
+    return path.startsWith("/h2-console") || path.startsWith("/authentication") || path.startsWith("/favicon.ico");
+  }
 }
