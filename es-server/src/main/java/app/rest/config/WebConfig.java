@@ -2,11 +2,11 @@ package app.rest.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.net.http.HttpHeaders;
 import java.util.Set;
 
 @Configuration
@@ -18,8 +18,8 @@ public class WebConfig implements WebMvcConfigurer {
     registry.addMapping("/**")
       .allowedMethods("GET", "POST", "PUT", "DELETE")
       .allowedOrigins("http://localhost:4203", "http://localhost:4200")
-      .allowedHeaders(org.springframework.http.HttpHeaders.AUTHORIZATION, org.springframework.http.HttpHeaders.CONTENT_TYPE)
-      .exposedHeaders(org.springframework.http.HttpHeaders.AUTHORIZATION, org.springframework.http.HttpHeaders.CONTENT_TYPE)
+      .allowedHeaders(HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE)
+      .exposedHeaders(HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE)
       .allowCredentials(true);
   }
 
@@ -27,8 +27,15 @@ public class WebConfig implements WebMvcConfigurer {
   public final Set<String> SECURED_PATHS =
     Set.of("/scooters");
 
+  //JWT configuration that can be adjusted from application.properties
+  @Value("HvA")
+  public String issuer;
+
   @Value("${jwt.pass-phrase:This is very secret information for my private encryption key.}")
   private String passphrase;
+
+  @Value("1200") //default 20 minutes
+  public int tokenDurationOfValidity;
 
   public String getPassphrase() {
     return passphrase;
