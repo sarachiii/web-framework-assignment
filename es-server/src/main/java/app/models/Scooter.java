@@ -41,7 +41,6 @@ public class Scooter implements Identifiable{
   private double mileage;
 
   @OneToMany(mappedBy = "scooter")
-  @JsonBackReference
   private List<Trip> trips = new ArrayList<>();
 
   private int currentTrip;

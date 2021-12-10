@@ -1,5 +1,6 @@
 package app.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.tomcat.jni.Local;
 
@@ -30,6 +31,7 @@ public class Trip implements Identifiable {
   private static int newId = 1000;
 
   @ManyToOne
+  @JsonBackReference
   private Scooter scooter;
 
   public Trip() {
